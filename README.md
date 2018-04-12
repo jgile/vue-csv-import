@@ -38,7 +38,7 @@ new Vue({
 ```
 
 Include in template:
-```js
+```html
 <vue-csv-import url="/url/to/post" :map-fields="['array', 'of', 'field', 'names']"></vue-csv-import>
 
 ```
