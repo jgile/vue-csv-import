@@ -1,0 +1,16 @@
+{
+    "extends": "eslint:recommended",
+    "rules": {
+        "indent": ["error", 4],
+        "no-undef": "off",
+        "no-console": "off"
+    },
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
+    "env": {
+        "browser": true,
+        "node": true
+    }
+}

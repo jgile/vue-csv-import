@@ -1,0 +1,63 @@
+{
+  "name": "vue-csv-import",
+  "version": "0.0.1",
+  "description": "Vue.js component to handle CSV uploads with field mapping.  ",
+  "main": "dist/index.js",
+  "jsnext:main": "src/index.js",
+  "scripts": {
+    "start": "webpack-dev-server --config docs/webpack.config.js",
+    "build": "rm -rf dist && NODE_ENV=production webpack",
+    "lint": "eslint --ext .js,.vue --fix src __tests__; exit 0",
+    "prepublish": "npm run test; npm run build",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jgile/vue-csv-import.git"
+  },
+  "keywords": [
+    "jgile"
+  ],
+  "author": "John Gile",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jgile/vue-csv-import/issues"
+  },
+  "homepage": "https://github.com/jgile/vue-csv-import",
+  "peerDependencies": {
+    "vue": "^2.3.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.4.0",
+    "css-loader": "^0.28.1",
+    "eslint": "^3.7.1",
+    "jest": "^19.0.0",
+    "jest-vue-preprocessor": "^0.2.0",
+    "vue": "^2.3.0",
+    "vue-loader": "^12.0.3",
+    "vue-template-compiler": "^2.3.0",
+    "webpack": "^2.3.3",
+    "webpack-dev-server": "^2.4.2",
+    "webpack-merge": "^4.1.0"
+  },
+  "jest": {
+    "testRegex": "test.js$",
+    "moduleFileExtensions": [
+      "js",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
+    }
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "csv-parse": "^2.2.0",
+    "lodash": "^4.17.5"
+  }
+}
