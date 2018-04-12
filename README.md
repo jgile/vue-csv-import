@@ -4,11 +4,10 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![CircleCI](https://circleci.com/gh/jgile/vue-csv-import.svg?style=svg)](https://circleci.com/gh/jgile/vue-csv-import)
 
-Add a short description here, with some examples on how the package can be used.
 
 ## Demo
 
-Add a link to a site where the component is being demonstrated live.
+Go to the "docs" folder for a working example.
 
 ## Installation
 
@@ -25,8 +24,25 @@ npm install vue-csv-import --save
 ```
 
 ## Usage
+Load component:
 
-Add instruction on how the package can be used
+```js
+import { VueCsvImport } from '../src';
+
+new Vue({
+    components: { VueCsvImport },
+
+    el: '#app',
+});
+
+```
+
+Include in template:
+```js
+<vue-csv-import url="/url/to/post" :map-fields="['array', 'of', 'field', 'names']"></vue-csv-import>
+
+```
+
 
 ### Testing
 
