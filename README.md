@@ -7,6 +7,9 @@
 
 ## Demo
 
+[Demo](https://codepen.io/jgile/pen/RMmWOd)
+
+
 Go to the "docs" folder for a working example.
 
 ## Installation
