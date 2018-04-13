@@ -5,6 +5,7 @@
 [![CircleCI](https://circleci.com/gh/jgile/vue-csv-import.svg?style=svg)](https://circleci.com/gh/jgile/vue-csv-import)
 
 
+
 ## Demo
 
 Go to the "docs" folder for a working example.
@@ -24,7 +25,7 @@ npm install vue-csv-import --save
 ```
 
 ## Usage
-Load component:
+Import component:
 
 ```js
 import { VueCsvImport } from '../src';
@@ -43,6 +44,19 @@ Include in template:
 
 ```
 
+Options:
+
+| Option | Default | Description |
+| ------ | ------- | ----------- |
+| url | null | If present, the component will post the mapped values to this url |
+| mapFields | [] | required. These are the field names that the CSV will be mapped to. |
+| callback  | null | The callback to be called on successful upload. (url required) |
+| catch | null | The function to be called on an error in posting (url required) |
+| finally | null | The function to be called no matter what on posting (url required) |
+| tableClass | "table" | The class to be added to table element |
+| checkboxClass | "form-check-input" | The class to be added to the checkbox |
+| buttonClass | "btn btn-default" | The class to be added to buttons |
+| inputClass | "form-control" | The class to be added to the file input |
 
 ### Testing
 

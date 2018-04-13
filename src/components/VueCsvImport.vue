@@ -2,7 +2,7 @@
     <div class="vue-csv-uploader">
         <div class="form">
             <div class="form-check">
-                <input :class="checkboxClass" class="" type="checkbox" id="hasHeaders" v-model="hasHeaders">
+                <input :class="checkboxClass" type="checkbox" id="hasHeaders" v-model="hasHeaders">
                 <label class="form-check-label" for="hasHeaders">
                     Has Headers
                 </label>
@@ -49,9 +49,9 @@
 
     export default {
         props: {
+            value: File,
             url: {
-                type: String,
-                required: true
+                type: String
             },
             mapFields: {
                 type: Array,
@@ -104,13 +104,18 @@
             submit() {
                 const _this = this;
                 this.form.csv = this.buildMappedCsv();
-                axios.post(this.url, this.form).then(response => {
-                    _this.callback(response);
-                }).catch(response => {
-                    _this.catch(response);
-                }).finally(response => {
-                    _this.finally(response);
-                });
+
+                this.$emit('input', this.form.csv);
+
+                if (this.url) {
+                    axios.post(this.url, this.form).then(response => {
+                        _this.callback(response);
+                    }).catch(response => {
+                        _this.catch(response);
+                    }).finally(response => {
+                        _this.finally(response);
+                    });
+                }
             },
             buildMappedCsv() {
                 const _this = this;
