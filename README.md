@@ -51,8 +51,8 @@ Options:
 
 | Option | Default | Description |
 | ------ | ------- | ----------- |
-| url | null | If present, the component will post the mapped values to this url |
-| mapFields | [] | required. These are the field names that the CSV will be mapped to. |
+| mapFields | [] | (required) These are the field names that the CSV will be mapped to |
+| url | null | If present, the component will post the mapped values to this url.  Otherwise, the component will only emit the value to be used as a normal input |
 | callback  | null | The callback to be called on successful upload. (url required) |
 | catch | null | The function to be called on an error in posting (url required) |
 | finally | null | The function to be called no matter what on posting (url required) |
