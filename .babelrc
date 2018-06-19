@@ -2,7 +2,7 @@
   "presets": [
     ["env", {
       "targets": {
-        "browsers": ["> 2%", "safari >= 7", "ie 11"]
+        "browsers": ["last 2 versions", "safari >= 7", "ie >= 11"]
       },
       "modules": "umd"
     }]
