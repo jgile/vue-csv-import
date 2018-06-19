@@ -1,5 +1,3 @@
-const path = require('path');
-console.log(path.resolve(__dirname, 'node_modules/csv-parse'));
 module.exports = {
     module: {
         rules: [
