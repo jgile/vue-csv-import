@@ -33,7 +33,7 @@
                     </tbody>
                 </table>
 
-                <div class="form-group">
+                <div class="form-group" v-if="url">
                     <input type="submit" :class="buttonClass" @click.prevent="submit">
                 </div>
             </div>
@@ -49,7 +49,7 @@
 
     export default {
         props: {
-            value: File,
+            value: Array,
             url: {
                 type: String
             },
@@ -162,6 +162,24 @@
                 }
             }
         },
+
+        watch: {
+            map: {
+                handler: function (newVal) {
+                    if(!this.url){
+                        var hasAllKeys = this.mapFields.every(function(item){
+                            return newVal.hasOwnProperty(item);
+                        });
+
+                        if (hasAllKeys) {
+                            this.submit();
+                        }
+                    }
+                },
+                deep: true
+            }
+        },
+
         computed: {
             firstRow() {
                 return _.get(this, "sample.0");

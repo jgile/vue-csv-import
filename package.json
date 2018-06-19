@@ -1,9 +1,9 @@
 {
   "name": "vue-csv-import",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Vue.js component to handle CSV uploads with field mapping.  ",
   "main": "dist/index.js",
-  "jsnext:main": "src/index.js",
+  "jsnext:main": "dist/index.js",
   "scripts": {
     "start": "webpack-dev-server --config docs/webpack.config.js",
     "build": "rm -rf dist && NODE_ENV=production webpack",
