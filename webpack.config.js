@@ -15,5 +15,8 @@ module.exports = merge(require('./webpack.base'), {
 
     externals: {
         vue: 'vue',
+        axios: "axios",
+        lodash: "lodash",
+        "csv-parse": "csv-parse"
     },
 });

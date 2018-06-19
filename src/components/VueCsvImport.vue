@@ -44,8 +44,8 @@
 <script>
     import _ from "lodash";
     import axios from 'axios';
-
-    const parse = require('csv-parse');
+    import parse from "csv-parse";
+    // const parse = require('csv-parse');
 
     export default {
         props: {
