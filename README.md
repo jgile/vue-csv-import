@@ -46,12 +46,17 @@ Include in template:
 <vue-csv-import url="/url/to/post" :map-fields="['array', 'of', 'field', 'names']"></vue-csv-import>
 
 ```
+or with labels:
+```html
+<vue-csv-import url="/url/to/post" :map-fields="[field1: 'Label 1', field2: 'Label 2']"></vue-csv-import>
+
+```
 
 Options:
 
 | Option | Default | Description |
 | ------ | ------- | ----------- |
-| mapFields | [] | (required) These are the field names that the CSV will be mapped to |
+| mapFields | N/A | (required) These are the field names that the CSV will be mapped to |
 | url | null | If present, the component will post the mapped values to this url.  Otherwise, the component will only emit the value to be used as a normal input |
 | callback  | null | The callback to be called on successful upload. (url required) |
 | catch | null | The function to be called on an error in posting (url required) |

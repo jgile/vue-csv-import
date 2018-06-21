@@ -4,7 +4,7 @@
             <div class="form-check">
                 <input :class="checkboxClass" type="checkbox" id="hasHeaders" v-model="hasHeaders">
                 <label class="form-check-label" for="hasHeaders">
-                    Has Headers
+                    File Has Headers
                 </label>
             </div>
             <div class="form-group">
@@ -22,10 +22,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(field) in mapFields">
-                        <td>{{ field }}</td>
+                    <tr v-for="(field) in fieldsToMap">
+                        <td>{{ field.label }}</td>
                         <td>
-                            <select class="form-control" v-model="map[field]">
+                            <select class="form-control" v-model="map[field.key]">
                                 <option v-for="(column, key) in firstRow" :value="key">{{ column }}</option>
                             </select>
                         </td>
@@ -45,7 +45,6 @@
     import _ from "lodash";
     import axios from 'axios';
     import parse from "csv-parse";
-    // const parse = require('csv-parse');
 
     export default {
         props: {
@@ -54,7 +53,6 @@
                 type: String
             },
             mapFields: {
-                type: Array,
                 required: true
             },
             callback: {
@@ -94,11 +92,30 @@
             form: {
                 csv: null,
             },
+            fieldsToMap: [],
             map: {},
             hasHeaders: true,
             csv: null,
             sample: null,
         }),
+
+        created() {
+            if (_.isArray(this.mapFields)) {
+                this.fieldsToMap = _.map(this.mapFields, (item) => {
+                    return {
+                        key: item,
+                        label: item
+                    };
+                });
+            } else {
+                this.fieldsToMap = _.map(this.mapFields, (label, key) => {
+                    return {
+                        key: key,
+                        label: label
+                    };
+                });
+            }
+        },
 
         methods: {
             submit() {
@@ -166,8 +183,8 @@
         watch: {
             map: {
                 handler: function (newVal) {
-                    if(!this.url){
-                        var hasAllKeys = this.mapFields.every(function(item){
+                    if (!this.url) {
+                        var hasAllKeys = this.mapFields.every(function (item) {
                             return newVal.hasOwnProperty(item);
                         });
 
