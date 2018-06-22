@@ -1,40 +1,44 @@
 <template>
     <div class="vue-csv-uploader">
         <div class="form">
-            <div class="form-check">
-                <input :class="checkboxClass" type="checkbox" id="hasHeaders" v-model="hasHeaders">
-                <label class="form-check-label" for="hasHeaders">
-                    File Has Headers
-                </label>
+            <div class="vue-csv-uploader-part-one">
+                <div class="form-check">
+                    <input :class="checkboxClass" type="checkbox" id="hasHeaders" v-model="hasHeaders">
+                    <label class="form-check-label" for="hasHeaders">
+                        File Has Headers
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input ref="csv" type="file" :class="inputClass" name="csv">
+                </div>
+                <div class="form-group">
+                    <input type="submit" :class="buttonClass" @click.prevent="getSample">
+                </div>
             </div>
-            <div class="form-group">
-                <input ref="csv" type="file" :class="inputClass" name="csv">
-            </div>
-            <div class="form-group">
-                <input type="submit" :class="buttonClass" @click.prevent="getSample">
-            </div>
-            <div class="vue-csv-mapping" v-if="sample">
-                <table :class="tableClass">
-                    <thead>
-                    <tr>
-                        <th>Field</th>
-                        <th>CSV Column</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="(field) in fieldsToMap">
-                        <td>{{ field.label }}</td>
-                        <td>
-                            <select class="form-control" v-model="map[field.key]">
-                                <option v-for="(column, key) in firstRow" :value="key">{{ column }}</option>
-                            </select>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="vue-csv-uploader-part-two">
+                <div class="vue-csv-mapping" v-if="sample">
+                    <table :class="tableClass">
+                        <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>CSV Column</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(field) in fieldsToMap">
+                            <td>{{ field.label }}</td>
+                            <td>
+                                <select class="form-control" v-model="map[field.key]">
+                                    <option v-for="(column, key) in firstRow" :value="key">{{ column }}</option>
+                                </select>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-                <div class="form-group" v-if="url">
-                    <input type="submit" :class="buttonClass" @click.prevent="submit">
+                    <div class="form-group" v-if="url">
+                        <input type="submit" :class="buttonClass" @click.prevent="submit">
+                    </div>
                 </div>
             </div>
         </div>
