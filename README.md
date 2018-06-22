@@ -64,7 +64,9 @@ Options:
 | tableClass | "table" | The class to be added to table element |
 | checkboxClass | "form-check-input" | The class to be added to the checkbox |
 | buttonClass | "btn btn-default" | The class to be added to buttons |
-| inputClass | "form-control" | The class to be added to the file input |
+| inputClass | "form-control-file" | The class to be added to the file input |
+| submitBtnText | "Submit" | The value of the final submit button |
+| loadBtnText | "Submit" | The value of the initial load file button |
 
 ### Testing
 

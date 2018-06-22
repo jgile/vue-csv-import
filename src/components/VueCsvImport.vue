@@ -12,7 +12,7 @@
                     <input ref="csv" type="file" :class="inputClass" name="csv">
                 </div>
                 <div class="form-group">
-                    <input type="submit" :class="buttonClass" @click.prevent="getSample">
+                    <input type="submit" :class="buttonClass" @click.prevent="getSample" :value="loadBtnText">
                 </div>
             </div>
             <div class="vue-csv-uploader-part-two">
@@ -37,7 +37,7 @@
                     </table>
 
                     <div class="form-group" v-if="url">
-                        <input type="submit" :class="buttonClass" @click.prevent="submit">
+                        <input type="submit" :class="buttonClass" @click.prevent="submit" :value="submitBtnText">
                     </div>
                 </div>
             </div>
@@ -74,6 +74,14 @@
                 default: (response) => {
                 }
             },
+            loadBtnText: {
+                type: String,
+                default: "Submit"
+            },
+            submitBtnText: {
+                type: String,
+                default: "Submit"
+            },
             tableClass: {
                 type: String,
                 default: "table"
@@ -88,7 +96,7 @@
             },
             inputClass: {
                 type: String,
-                default: "form-control"
+                default: "form-control-file"
             }
         },
 
