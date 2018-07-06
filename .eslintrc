@@ -1,16 +1,20 @@
 {
-    "extends": "eslint:recommended",
-    "rules": {
-        "indent": ["error", 4],
-        "no-undef": "off",
-        "no-console": "off"
-    },
-    "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module"
-    },
-    "env": {
-        "browser": true,
-        "node": true
-    }
+  "extends": "eslint:recommended",
+  "rules": {
+    "indent": [
+      "error",
+      2
+    ],
+    "no-undef": "off",
+    "no-console": "off"
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "env": {
+    "node": true,
+    "browser": true,
+    "es6": true
+  }
 }

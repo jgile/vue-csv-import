@@ -1,1 +1,1 @@
-export { default as VueCsvImport } from './components/VueCsvImport';
+export {default as VueCsvImport} from './components/VueCsvImport.vue';
