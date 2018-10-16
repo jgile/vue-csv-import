@@ -11,3 +11,6 @@ All notable changes to `vue-csv-import` will be documented in this file
 ## 1.5.1
 - Change default file class.
 - Add options for the button values
+
+## 1.6
+- Debug and added tests

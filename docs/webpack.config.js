@@ -1,25 +1,34 @@
+// webpack.config.js
 const path = require('path');
-const merge = require('webpack-merge');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-module.exports = merge(require('../webpack.base'), {
-    context: __dirname,
-
-    entry: './app.js',
-
-    output: {
-        path: path.resolve(__dirname, 'build'),
-        filename: 'app.js',
-        publicPath: '/build/',
-    },
-
-    resolve: {
-        alias: {
-            vue: 'vue/dist/vue.js',
-        },
-    },
-
-    devServer: {
-        contentBase: __dirname,
-        port: 2000,
-    },
-});
+module.exports = {
+  mode: 'production',
+  module: {
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
+      // this will apply to both plain `.js` files
+      // AND `<script>` blocks in `.vue` files
+      {
+        test: /\.js$/,
+        loader: 'babel-loader'
+      },
+      // this will apply to both plain `.css` files
+      // AND `<style>` blocks in `.vue` files
+      {
+        test: /\.css$/,
+        use: [
+          'vue-style-loader',
+          'css-loader'
+        ]
+      }
+    ]
+  },
+  plugins: [
+    // make sure to include the plugin for the magic
+    new VueLoaderPlugin()
+  ]
+};

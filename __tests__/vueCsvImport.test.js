@@ -1,30 +1,42 @@
-import { VueCsvImport } from '../src';
-import Vue from 'vue/dist/vue.js';
+import {VueCsvImport} from '../src';
+import {shallowMount} from '@vue/test-utils';
+// import Vue from 'vue';
 
 describe('VueCsvImport', () => {
-    Vue.component('vue-csv-import', VueCsvImport);
+  let wrapper;
 
-    beforeEach(() => {
-        document.body.innerHTML = `
-            <div id="app">
-                <vue-csv-import :map-fields="['one', 'two', 'three']" url="/hello"></vue-csv-import>
-            </div>
-        `;
+  beforeEach(() => {
+    wrapper = shallowMount(VueCsvImport, {
+      propsData: {
+        mapFields: ['one', 'two', 'three'],
+        url: '/hello'
+      }
+    });
+  });
+
+  it('is a Vue instance', () => {
+    expect(wrapper.isVueInstance()).toBeTruthy();
+  });
+
+  it('has expected html', () => {
+    expect(wrapper.$el).toMatchSnapshot();
+  });
+
+  it('has expected map fields when array', () => {
+    expect(wrapper.vm.fieldsToMap).toEqual([{"key": "one", "label": "one"}, {"key": "two", "label": "two"}, {"key": "three", "label": "three"}]);
+  });
+
+  it('has expected map fields when object', () => {
+    wrapper = shallowMount(VueCsvImport, {
+      propsData: {
+        mapFields: {
+          four: 'four',
+          five: 'five'
+        },
+        url: '/hello'
+      }
     });
 
-    it('can mount', async () => {
-        await createVm();
-
-        expect(document.body.innerHTML).toMatchSnapshot();
-    });
+    expect(wrapper.vm.fieldsToMap).toEqual([{"key": "four", "label": "four"}, {"key": "five", "label": "five"}]);
+  });
 });
-
-async function createVm() {
-    const vm = new Vue({
-        el: '#app',
-    });
-
-    await Vue.nextTick(() => {});
-
-    return { app: vm, component: vm.$children[0] };
-}

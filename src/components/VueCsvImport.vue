@@ -191,7 +191,6 @@
         }
       }
     },
-
     watch: {
       map: {
         handler: function (newVal) {
@@ -208,7 +207,6 @@
         deep: true
       }
     },
-
     computed: {
       firstRow() {
         return _.get(this, "sample.0");
@@ -219,6 +217,3 @@
     },
   };
 </script>
-
-<style>
-</style>
