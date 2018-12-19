@@ -5,7 +5,7 @@
   "main": "dist/vue-csv-import.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target wc --name vue-csv-import src/components/VueCsvImport.vue",
+    "build": "vue-cli-service build --target lib --name vue-csv-import src/components/VueCsvImport.vue",
     "lint": "vue-cli-service lint",
     "test": "vue-cli-service test:unit"
   },
