@@ -31,6 +31,7 @@
     "vue": "^2.3.0"
   },
   "devDependencies": {
+    "@babel/runtime-corejs2": "^7.2.0",
     "@vue/cli-plugin-babel": "^3.0.5",
     "@vue/cli-plugin-eslint": "^3.0.5",
     "@vue/cli-plugin-unit-jest": "^3.0.5",
