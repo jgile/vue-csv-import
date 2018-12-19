@@ -1,7 +1,7 @@
 {
   "name": "vue-csv-import",
   "description": "Vue.js component to handle CSV uploads with field mapping.",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "main": "dist/vue-csv-import.js",
   "scripts": {
     "serve": "vue-cli-service serve",
