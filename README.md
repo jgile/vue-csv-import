@@ -8,7 +8,7 @@
 
 ## Demo
 
-[Demo](https://codepen.io/jgile/pen/RMmWOd)
+[Demo](https://n94qv5xmlp.codesandbox.io)
 
 
 Go to the "docs" folder for a working example.
