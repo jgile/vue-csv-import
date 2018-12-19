@@ -14,3 +14,7 @@ All notable changes to `vue-csv-import` will be documented in this file
 
 ## 1.6
 - Debug and added tests
+
+## 1.7
+- Remove csv-parse dependency and replace with papaparse - smaller and more dependable.
+- Can now use with v-model.  will return a parsed csv.

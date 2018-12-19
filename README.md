@@ -51,7 +51,11 @@ or with labels:
 <vue-csv-import url="/url/to/post" :map-fields="[field1: 'Label 1', field2: 'Label 2']"></vue-csv-import>
 
 ```
+or with v-model:
+```html
+<vue-csv-import v-model="parseCsv" :map-fields="[field1: 'Label 1', field2: 'Label 2']"></vue-csv-import>
 
+```
 Options:
 
 | Option | Default | Description |

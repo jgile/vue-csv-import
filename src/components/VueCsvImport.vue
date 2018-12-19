@@ -2,7 +2,7 @@
     <div class="vue-csv-uploader">
         <div class="form">
             <div class="vue-csv-uploader-part-one">
-                <div class="form-check">
+                <div class="form-check form-group">
                     <input :class="checkboxClass" type="checkbox" id="hasHeaders" v-model="hasHeaders">
                     <label class="form-check-label" for="hasHeaders">
                         File Has Headers
@@ -25,11 +25,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="(field) in fieldsToMap">
+                        <tr v-for="(field, key) in fieldsToMap" :key="key">
                             <td>{{ field.label }}</td>
                             <td>
                                 <select class="form-control" v-model="map[field.key]">
-                                    <option v-for="(column, key) in firstRow" :value="key">{{ column }}</option>
+                                    <option v-for="(column, key) in firstRow" :key="key" :value="key">{{ column }}</option>
                                 </select>
                             </td>
                         </tr>
@@ -46,9 +46,9 @@
 </template>
 
 <script>
-  import _ from "lodash";
+  import _ from 'lodash';
   import axios from 'axios';
-  import parse from "csv-parse";
+  import Papa from 'papaparse';
 
   export default {
     props: {
@@ -61,17 +61,17 @@
       },
       callback: {
         type: Function,
-        default: (response) => {
+        default: () => {
         }
       },
       catch: {
         type: Function,
-        default: (response) => {
+        default: () => {
         }
       },
       finally: {
         type: Function,
-        default: (response) => {
+        default: () => {
         }
       },
       loadBtnText: {
@@ -92,7 +92,7 @@
       },
       buttonClass: {
         type: String,
-        default: "btn btn-default"
+        default: "btn btn-primary"
       },
       inputClass: {
         type: String,
@@ -133,7 +133,6 @@
       submit() {
         const _this = this;
         this.form.csv = this.buildMappedCsv();
-
         this.$emit('input', this.form.csv);
 
         if (this.url) {
@@ -165,12 +164,8 @@
         const _this = this;
 
         this.readFile((output) => {
-          parse(output, {to: 2}, function (err, output) {
-            _this.sample = output;
-          });
-          parse(output, {}, function (err, output) {
-            _this.csv = output;
-          });
+          _this.sample = _.get(Papa.parse(output, {preview: 2}), "data");
+          _this.csv = _.get(Papa.parse(output), "data");
         });
       },
       readFile(callback) {
@@ -178,15 +173,11 @@
 
         if (file) {
           let reader = new FileReader();
-
           reader.readAsText(file, "UTF-8");
-
           reader.onload = function (evt) {
             callback(evt.target.result);
           };
-
-          reader.onerror = function (evt) {
-            console.log("Error reading CSV");
+          reader.onerror = function () {
           };
         }
       }
@@ -209,9 +200,6 @@
     },
     computed: {
       firstRow() {
-        return _.get(this, "sample.0");
-      },
-      headers() {
         return _.get(this, "sample.0");
       }
     },

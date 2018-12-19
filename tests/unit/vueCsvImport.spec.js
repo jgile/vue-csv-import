@@ -1,6 +1,5 @@
-import {VueCsvImport} from '../src';
 import {shallowMount} from '@vue/test-utils';
-// import Vue from 'vue';
+import {VueCsvImport} from '../../src/index';
 
 describe('VueCsvImport', () => {
   let wrapper;

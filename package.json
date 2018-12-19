@@ -1,60 +1,90 @@
 {
   "name": "vue-csv-import",
+  "description": "Vue.js component to handle CSV uploads with field mapping.",
   "version": "2.0.0",
-  "description": "Vue.js component to handle CSV uploads with field mapping.  ",
+  "private": true,
   "main": "dist/index.js",
   "scripts": {
-    "prepare": "npm run build",
-    "build": "rollup -c",
-    "watch": "rollup -c -w",
-    "test": "jest && npm run build"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build --target wc --name vue-csv-import src/index.js",
+    "lint": "vue-cli-service lint",
+    "test": "vue-cli-service test:unit"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/jgile/vue-csv-import.git"
   },
   "keywords": [
-    "jgile"
+    "jgile",
+    "csv",
+    "map"
   ],
-  "author": "John Gile",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jgile/vue-csv-import/issues"
   },
-  "homepage": "https://github.com/jgile/vue-csv-import",
+  "author": "John Gile",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "lodash": "^4.17.5",
+    "papaparse": "^4.6.1",
+    "vue": "^2.3.0"
+  },
   "devDependencies": {
-    "@babel/core": "7.1.2",
-    "@babel/plugin-transform-runtime": "^7.1.0",
-    "@babel/preset-env": "7.1.0",
-    "@vue/test-utils": "^1.0.0-beta.25",
+    "@vue/cli-plugin-babel": "^3.0.5",
+    "@vue/cli-plugin-eslint": "^3.0.5",
+    "@vue/cli-plugin-unit-jest": "^3.0.5",
+    "@vue/cli-service": "^3.0.5",
+    "@vue/test-utils": "^1.0.0-beta.20",
     "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "23.6.0",
-    "eslint": "^3.7.1",
-    "jest": "23.6.0",
-    "rollup": "0.66.6",
-    "rollup-plugin-babel": "4.0.3",
-    "rollup-plugin-buble": "^0.19.4",
-    "rollup-plugin-commonjs": "9.2.0",
-    "rollup-plugin-json": "^3.1.0",
-    "rollup-plugin-node-resolve": "3.4.0",
-    "rollup-plugin-vue": "^4.3.2",
-    "vue-jest": "^3.0.0",
+    "babel-jest": "^23.0.1",
     "vue-template-compiler": "^2.5.17"
   },
-  "dependencies": {
-    "vue": "^2.3.0",
-    "axios": "^0.18.0",
-    "csv-parse": "^2.5.0",
-    "lodash": "^4.17.11"
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
   },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "jest": {
     "moduleFileExtensions": [
       "js",
+      "jsx",
+      "json",
       "vue"
     ],
     "transform": {
-      "^.+\\.js$": "babel-jest",
-      "^.+\\.vue$": "vue-jest"
-    }
+      "^.+\\.vue$": "vue-jest",
+      ".+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "snapshotSerializers": [
+      "jest-serializer-vue"
+    ],
+    "testMatch": [
+      "**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)"
+    ],
+    "testURL": "http://localhost/"
   }
 }
