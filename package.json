@@ -1,8 +1,8 @@
 {
   "name": "vue-csv-import",
   "description": "Vue.js component to handle CSV uploads with field mapping.",
-  "version": "2.3.3",
-  "main": "dist/vue-csv-import.umd.js",
+  "version": "2.4.0",
+  "main": "dist/vue-csv-import.umd.min.js",
   "bugs": {
     "url": "https://github.com/jgile/vue-csv-import/issues"
   },
@@ -19,7 +19,7 @@
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --target lib --name vue-csv-import src/components/VueCsvImport.vue",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },

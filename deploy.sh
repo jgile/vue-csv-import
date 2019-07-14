@@ -4,7 +4,7 @@
 set -e
 
 # build
-npm run build
+vue-cli-service build
 
 # navigate into the build output directory
 cd dist

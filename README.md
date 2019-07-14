@@ -8,7 +8,7 @@
 
 ## Demo
 
-[Demo](https://n94qv5xmlp.codesandbox.io)
+[Demo](https://jgile.github.io/vue-csv-import/)
 
 
 Go to the "docs" folder for a working example.
@@ -31,11 +31,10 @@ npm install vue-csv-import --save
 Import component:
 
 ```js
-import { VueCsvImport } from '../src';
+import { VueCsvImport } from 'vue-csv-import';
 
 new Vue({
     components: { VueCsvImport },
-
     el: '#app',
 });
 
@@ -116,7 +115,7 @@ Slots:
 ### Testing
 
 ```bash
-yarn test
+npm run test
 ```
 
 ### Changelog
