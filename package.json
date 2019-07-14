@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
-    "core-js": "^2.6.5",
     "lodash": "^4.17.14",
     "papaparse": "^5.0.0",
     "vue": "^2.6.10"
