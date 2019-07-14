@@ -18,3 +18,9 @@ All notable changes to `vue-csv-import` will be documented in this file
 ## 2.1.0
 - Remove csv-parse dependency and replace with papaparse - smaller and more dependable.
 - Can now use with v-model.  will return a parsed csv.
+
+## 2.3.0
+- Added slots for file header checkbox and table thead.
+- default button text changed to "next"
+- added callback for usage without url.
+- Added 'headers' prop.  Define whether csv has headers by default.  Removes checkbox.

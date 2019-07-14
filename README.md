@@ -56,6 +56,37 @@ or with v-model:
 <vue-csv-import v-model="parseCsv" :map-fields="[field1: 'Label 1', field2: 'Label 2']"></vue-csv-import>
 
 ```
+With all available slots:
+```html
+<vue-csv-import 
+    v-model="csv" 
+    url="/hello" 
+    :map-fields="['name', 'age']">
+
+    <template slot="hasHeaders" slot-scope="{headers, toggle}">
+        <label>
+            <input type="checkbox" id="hasHeaders" :value="headers" @change="toggle">
+            Headers?
+        </label>
+    </template>
+
+    <template slot="thead">
+        <tr>
+            <th>My Fields</th>
+            <th>Column</th>
+        </tr>
+    </template>
+
+    <template slot="next" slot-scope="{load}">
+        <button @click.prevent="load">load!</button>
+    </template>
+
+    <template slot="submit" slot-scope="{submit}">
+        <button @click.prevent="submit">send!</button>
+    </template>
+</vue-csv-import>
+
+```
 Options:
 
 | Option | Default | Description |
@@ -71,6 +102,16 @@ Options:
 | inputClass | "form-control-file" | The class to be added to the file input |
 | submitBtnText | "Submit" | The value of the final submit button |
 | loadBtnText | "Submit" | The value of the initial load file button |
+| headers | null | Define whether csv has headers by default.  Removes checkbox. |
+
+Slots:
+
+| Slot | Description |
+| ------ | ----------- |
+| thead | The content of "thead" in the field mapping table |
+| next | The next button.  Use slot-scope "next" to load csv. |
+| submit | The submit button. Use slot-scope "submit" to submit form. |
+| hasHeaders | The "has headers" checkbox. Use slot-scope "toggle" and "headers". |
 
 ### Testing
 
