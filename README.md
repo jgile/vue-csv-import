@@ -3,7 +3,7 @@
 [![Latest Version on NPM](https://img.shields.io/npm/v/vue-csv-import.svg?style=flat-square)](https://npmjs.com/package/vue-csv-import)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![CircleCI](https://circleci.com/gh/jgile/vue-csv-import.svg?style=svg)](https://circleci.com/gh/jgile/vue-csv-import)
-
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jgile/vue-csv-import/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jgile/vue-csv-import/?branch=master)
 
 
 ## Demo
