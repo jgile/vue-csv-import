@@ -4,13 +4,13 @@
         <div class="container">
             <div class="row mt-5 text-center">
                 <div class="col-6 offset-3">
-                    <a href="/csv-sample.csv" target="_blank">Example CSV</a>
+                    <a href="/vue-csv-import/csv-sample.csv" target="_blank">Example CSV</a>
                 </div>
             </div>
             <div class="row mt-5">
                 <div class="col-8 offset-2">
                     <h4>Source:</h4>
-                    <pre><code>&lt;vue-csv-import v-model="csv" :map-fields="[name, age]"&gt;&lt;/vue-csv-import&gt;</code></pre>
+                    <pre><code>&lt;vue-csv-import v-model="csv" :map-fields="['name', 'age']"&gt;&lt;/vue-csv-import&gt;</code></pre>
                 </div>
             </div>
             <div class="row mt-5">
