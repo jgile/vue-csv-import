@@ -24,3 +24,8 @@ All notable changes to `vue-csv-import` will be documented in this file
 - default button text changed to "next"
 - added callback for usage without url.
 - Added 'headers' prop.  Define whether csv has headers by default.  Removes checkbox.
+
+## 2.3.4
+- restructure app
+- make axios and lodash external dependencies.
+- papaparse is bundled in component.

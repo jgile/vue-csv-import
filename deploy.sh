@@ -4,10 +4,10 @@
 set -e
 
 # build
-vue-cli-service build
+npm run build:demo
 
 # navigate into the build output directory
-cd dist
+cd dist/demo
 git init
 git add -A
 git commit -m 'deploy'
