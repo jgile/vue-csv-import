@@ -14,6 +14,11 @@ module.exports = {
                 commonjs: 'lodash',
                 commonjs2: 'lodash',
                 root: '_'
+            },
+            papaparse: {
+                commonjs: 'papaparse',
+                commonjs2: 'papaparse',
+                root: 'papaparse'
             }
         } : {}
     },

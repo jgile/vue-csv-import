@@ -9,7 +9,6 @@
                             File Has Headers
                         </label>
                     </slot>
-
                 </div>
                 <div class="form-group csv-import-file">
                     <input ref="csv" type="file" :class="inputClass" name="csv">

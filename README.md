@@ -11,7 +11,7 @@
 [Demo](https://jgile.github.io/vue-csv-import/)
 
 
-Go to the "docs" folder for a working example.
+Go to the "demo" folder for a working example.
 
 ## Installation
 

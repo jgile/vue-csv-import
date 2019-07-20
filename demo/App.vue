@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row mt-5 text-center">
                 <div class="col-6 offset-3">
-                    <a href="/vue-csv-import/csv-sample.csv" target="_blank">Example CSV</a>
+                    <a href="./csv-sample.csv" target="_blank">Example CSV</a>
                 </div>
             </div>
             <div class="row mt-5">
@@ -29,13 +29,13 @@
 </template>
 
 <script>
-    import VueCsvImport from "./components/VueCsvImport.vue";
+    import Vue from 'vue';
+    import { VueCsvImportPlugin } from "../src";
+
+    Vue.use(VueCsvImportPlugin);
 
     export default {
         name: "app",
-        components: {
-            VueCsvImport
-        },
         data() {
             return {
                 csv: null,
