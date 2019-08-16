@@ -29,11 +29,6 @@
 </template>
 
 <script>
-    import Vue from 'vue';
-    import { VueCsvImportPlugin } from "../src";
-
-    Vue.use(VueCsvImportPlugin);
-
     export default {
         name: "app",
         data() {
