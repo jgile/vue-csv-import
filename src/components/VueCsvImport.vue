@@ -12,7 +12,7 @@
                 </div>
                 <div class="form-group csv-import-file">
                     <input ref="csv" type="file" @change.prevent="validFileMimeType" :class="inputClass" name="csv">
-                    <slot name="error" v-if="showErrorMessage && !validedFileMimeType">
+                    <slot name="error" v-if="showErrorMessage && !isValidFileMimeType">
                         File type is invalid
                     </slot>
                 </div>
@@ -121,7 +121,9 @@
             },
             fileMimeTypes: {
                 type: Array,
-                default: () => { return ["text/csv"] }
+                default: () => {
+                    return ["text/csv"];
+                }
             }
         },
 
@@ -134,7 +136,7 @@
             hasHeaders: true,
             csv: null,
             sample: null,
-            validedFileMimeType: false,
+            isValidFileMimeType: false,
             fileSelected: false
         }),
 
@@ -194,11 +196,11 @@
             validFileMimeType() {
                 let file = this.$refs.csv.files[0];
                 if (file) {
-                    this.validedFileMimeType = (this.fileMimeTypes.indexOf(file.type) > -1) ? true : false
-                    this.fileSelected = true
+                    this.isValidFileMimeType = (this.fileMimeTypes.indexOf(file.type) > -1);
+                    this.fileSelected = true;
                 } else {
-                    this.validedFileMimeType = false
-                    this.fileSelected = false
+                    this.isValidFileMimeType = false;
+                    this.fileSelected = false;
                 }
             },
             load() {
@@ -247,10 +249,10 @@
                 return _.get(this, "sample.0");
             },
             showErrorMessage() {
-                return this.fileSelected
+                return this.fileSelected;
             },
             disabledNextButton() {
-                return !this.validedFileMimeType
+                return !this.isValidFileMimeType;
             }
         },
     };
