@@ -69,6 +69,10 @@ With all available slots:
         </label>
     </template>
 
+    <template slot="error">
+        File type is invalid
+    </template>
+
     <template slot="thead">
         <tr>
             <th>My Fields</th>
@@ -102,6 +106,7 @@ Options:
 | submitBtnText | "Submit" | The value of the final submit button |
 | loadBtnText | "Submit" | The value of the initial load file button |
 | headers | null | Define whether csv has headers by default.  Removes checkbox. |
+| fileMimeTypes | ["text/csv"] | Array of valid mime types
 
 Slots:
 

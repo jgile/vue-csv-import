@@ -29,3 +29,6 @@ All notable changes to `vue-csv-import` will be documented in this file
 - restructure app
 - make axios and lodash external dependencies.
 - papaparse is bundled in component.
+
+## 2.3.5
+- Mime type validation when selecting file

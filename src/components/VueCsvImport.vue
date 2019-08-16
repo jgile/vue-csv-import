@@ -11,11 +11,16 @@
                     </slot>
                 </div>
                 <div class="form-group csv-import-file">
-                    <input ref="csv" type="file" :class="inputClass" name="csv">
+                    <input ref="csv" type="file" @change.prevent="validFileMimeType" :class="inputClass" name="csv">
+                    <slot name="error" v-if="showErrorMessage && !validedFileMimeType">
+                        File type is invalid
+                    </slot>
                 </div>
                 <div class="form-group">
                     <slot name="next" :load="load">
-                        <input type="submit" :class="buttonClass" @click.prevent="load" :value="loadBtnText">
+                        <button type="submit" :disabled="disabledNextButton" :class="buttonClass" @click.prevent="load">
+                            {{ loadBtnText }}
+                        </button>
                     </slot>
                 </div>
             </div>
@@ -113,6 +118,10 @@
             inputClass: {
                 type: String,
                 default: "form-control-file"
+            },
+            fileMimeTypes: {
+                type: Array,
+                default: () => { return ["text/csv"] }
             }
         },
 
@@ -125,6 +134,8 @@
             hasHeaders: true,
             csv: null,
             sample: null,
+            validedFileMimeType: false,
+            fileSelected: false
         }),
 
         created() {
@@ -180,6 +191,16 @@
                     return newRow;
                 });
             },
+            validFileMimeType() {
+                let file = this.$refs.csv.files[0];
+                if (file) {
+                    this.validedFileMimeType = (this.fileMimeTypes.indexOf(file.type) > -1) ? true : false
+                    this.fileSelected = true
+                } else {
+                    this.validedFileMimeType = false
+                    this.fileSelected = false
+                }
+            },
             load() {
                 const _this = this;
 
@@ -224,6 +245,12 @@
         computed: {
             firstRow() {
                 return _.get(this, "sample.0");
+            },
+            showErrorMessage() {
+                return this.fileSelected
+            },
+            disabledNextButton() {
+                return !this.validedFileMimeType
             }
         },
     };
