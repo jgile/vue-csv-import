@@ -15,14 +15,14 @@ exports[`VueCsvImport has expected html 1`] = `
       >
         <input
           class="form-check-input"
-          id="hasHeaders"
+          id="hasHeaders9"
           type="checkbox"
           value=""
         />
          
         <label
           class="form-check-label"
-          for="hasHeaders"
+          for="hasHeaders9"
         >
           
                         File Has Headers
@@ -76,7 +76,25 @@ exports[`VueCsvImport headers prop removes checkbox and not use headers 1`] = `
     <div
       class="vue-csv-uploader-part-one"
     >
-      <!---->
+      <div
+        class="form-check form-group csv-import-checkbox"
+      >
+        <input
+          class="form-check-input"
+          id="hasHeaders27"
+          type="checkbox"
+          value="false"
+        />
+         
+        <label
+          class="form-check-label"
+          for="hasHeaders27"
+        >
+          
+                        File Has Headers
+                    
+        </label>
+      </div>
        
       <div
         class="form-group csv-import-file"
@@ -124,7 +142,25 @@ exports[`VueCsvImport headers prop removes checkbox and use headers 1`] = `
     <div
       class="vue-csv-uploader-part-one"
     >
-      <!---->
+      <div
+        class="form-check form-group csv-import-checkbox"
+      >
+        <input
+          class="form-check-input"
+          id="hasHeaders23"
+          type="checkbox"
+          value="true"
+        />
+         
+        <label
+          class="form-check-label"
+          for="hasHeaders23"
+        >
+          
+                        File Has Headers
+                    
+        </label>
+      </div>
        
       <div
         class="form-group csv-import-file"

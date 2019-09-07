@@ -32,3 +32,8 @@ All notable changes to `vue-csv-import` will be documented in this file
 
 ## 2.3.5
 - Mime type validation when selecting file
+
+## 2.3.6
+- added names to select fields
+- added other mime types to default accepted types array
+- added some more meaningful tests

@@ -47,19 +47,19 @@ Include in template:
 ```
 or with labels:
 ```html
-<vue-csv-import url="/url/to/post" :map-fields="[field1: 'Label 1', field2: 'Label 2']"></vue-csv-import>
+<vue-csv-import url="/url/to/post" :map-fields="{field1: 'Label 1', field2: 'Label 2'}"></vue-csv-import>
 
 ```
 or with v-model:
 ```html
-<vue-csv-import v-model="parseCsv" :map-fields="[field1: 'Label 1', field2: 'Label 2']"></vue-csv-import>
+<vue-csv-import v-model="parseCsv" :map-fields="{field1: 'Label 1', field2: 'Label 2'}"></vue-csv-import>
 
 ```
 With all available slots:
 ```html
-<vue-csv-import 
-    v-model="csv" 
-    url="/hello" 
+<vue-csv-import
+    v-model="csv"
+    url="/hello"
     :map-fields="['name', 'age']">
 
     <template slot="hasHeaders" slot-scope="{headers, toggle}">

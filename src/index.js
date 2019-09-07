@@ -8,7 +8,7 @@ const VueCsvImportPlugin = {
 };
 
 if (typeof window !== undefined && window.Vue && window.Vue === Vue) {
-    install(window.Vue);
+    VueCsvImportPlugin.install(window.Vue);
 }
 
 export { VueCsvImport, VueCsvImportPlugin };

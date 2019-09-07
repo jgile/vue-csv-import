@@ -4,8 +4,8 @@
             <div class="vue-csv-uploader-part-one">
                 <div class="form-check form-group csv-import-checkbox" v-if="headers === null">
                     <slot name="hasHeaders" :headers="hasHeaders" :toggle="toggleHasHeaders">
-                        <input :class="checkboxClass" type="checkbox" id="hasHeaders" :value="hasHeaders" @change="toggleHasHeaders">
-                        <label class="form-check-label" for="hasHeaders">
+                        <input :class="checkboxClass" type="checkbox" :id="makeId('hasHeaders')" :value="hasHeaders" @change="toggleHasHeaders">
+                        <label class="form-check-label" :for="makeId('hasHeaders')">
                             File Has Headers
                         </label>
                     </slot>
@@ -39,7 +39,7 @@
                         <tr v-for="(field, key) in fieldsToMap" :key="key">
                             <td>{{ field.label }}</td>
                             <td>
-                                <select class="form-control" v-model="map[field.key]">
+                                <select class="form-control" :name="`csv_uploader_map_${key}`" v-model="map[field.key]">
                                     <option v-for="(column, key) in firstRow" :key="key" :value="key">{{ column }}</option>
                                 </select>
                             </td>
@@ -122,7 +122,7 @@
             fileMimeTypes: {
                 type: Array,
                 default: () => {
-                    return ["text/csv"];
+                    return ["text/csv", "text/x-csv", "application/vnd.ms-excel", "text/plain"];
                 }
             }
         },
@@ -195,13 +195,17 @@
             },
             validFileMimeType() {
                 let file = this.$refs.csv.files[0];
+
                 if (file) {
-                    this.isValidFileMimeType = (this.fileMimeTypes.indexOf(file.type) > -1);
                     this.fileSelected = true;
+                    this.isValidFileMimeType = this.validateMimeType(file.type);
                 } else {
                     this.isValidFileMimeType = false;
                     this.fileSelected = false;
                 }
+            },
+            validateMimeType(type) {
+                return this.fileMimeTypes.indexOf(type) > -1;
             },
             load() {
                 const _this = this;
@@ -226,22 +230,25 @@
             },
             toggleHasHeaders() {
                 this.hasHeaders = !this.hasHeaders;
+            },
+            makeId(id) {
+                return `${id}${this._uid}`;
             }
         },
         watch: {
             map: {
+                deep: true,
                 handler: function (newVal) {
                     if (!this.url) {
-                        var hasAllKeys = this.mapFields.every(function (item) {
-                            return newVal.hasOwnProperty(item);
+                        let hasAllKeys = _.every(this.mapFields, function (item, val) {
+                            return newVal.hasOwnProperty(val);
                         });
 
                         if (hasAllKeys) {
                             this.submit();
                         }
                     }
-                },
-                deep: true
+                }
             }
         },
         computed: {
