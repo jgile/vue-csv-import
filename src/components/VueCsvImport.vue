@@ -12,8 +12,10 @@
                 </div>
                 <div class="form-group csv-import-file">
                     <input ref="csv" type="file" @change.prevent="validFileMimeType" :class="inputClass" name="csv">
-                    <slot name="error" v-if="showErrorMessage && !isValidFileMimeType">
-                        File type is invalid
+                    <slot name="error" v-if="showErrorMessage">
+                        <div class="invalid-feedback d-block">
+                            File type is invalid
+                        </div>
                     </slot>
                 </div>
                 <div class="form-group">
@@ -119,6 +121,10 @@
                 type: String,
                 default: "form-control-file"
             },
+            validation: {
+                type: Boolean,
+                default: true,
+            },
             fileMimeTypes: {
                 type: Array,
                 default: () => {
@@ -198,9 +204,9 @@
 
                 if (file) {
                     this.fileSelected = true;
-                    this.isValidFileMimeType = this.validateMimeType(file.type);
+                    this.isValidFileMimeType = this.validation ? this.validateMimeType(file.type) : true;
                 } else {
-                    this.isValidFileMimeType = false;
+                    this.isValidFileMimeType = !this.validation;
                     this.fileSelected = false;
                 }
             },
@@ -240,8 +246,10 @@
                 deep: true,
                 handler: function (newVal) {
                     if (!this.url) {
-                        let hasAllKeys = _.every(this.mapFields, function (item, val) {
-                            return newVal.hasOwnProperty(val);
+                        let hasAllKeys = Array.isArray(this.mapFields) ? _.every(this.mapFields, function (item) {
+                            return newVal.hasOwnProperty(item);
+                        }) : _.every(this.mapFields, function (item, key) {
+                            return newVal.hasOwnProperty(key);
                         });
 
                         if (hasAllKeys) {
@@ -256,7 +264,7 @@
                 return _.get(this, "sample.0");
             },
             showErrorMessage() {
-                return this.fileSelected;
+                return this.fileSelected && !this.isValidFileMimeType;
             },
             disabledNextButton() {
                 return !this.isValidFileMimeType;

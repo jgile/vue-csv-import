@@ -7,36 +7,17 @@
                     <a href="./csv-sample.csv" target="_blank">Example CSV</a>
                 </div>
             </div>
-<!--            <section class="py-5">-->
-<!--                <div class="row mt-5">-->
-<!--                    <div class="col-8 offset-2">-->
-<!--                        <h4>Source:</h4>-->
-<!--                        <pre><code>&lt;vue-csv-import v-model="csv" :map-fields="['name', 'age']"&gt;&lt;/vue-csv-import&gt;</code></pre>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="row mt-5">-->
-<!--                    <div class="col-8 offset-2">-->
-<!--                        <h4 class="mb-4">Result:</h4>-->
-
-<!--                        <vue-csv-import v-model="csv" :map-fields="['name', 'age']"></vue-csv-import>-->
-
-<!--                        <div class="mt-2">-->
-<!--                            {{ csv }}-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </section>-->
-            <section class="bg-dark text-white py-5">
+            <section class="py-5">
                 <div class="row mt-5">
                     <div class="col-8 offset-2">
-                        <h4>With Labels:</h4>
-                        <pre><code>&lt;vue-csv-import v-model="csv" :map-fields="{field1: 'Label 1', field2: 'Label 2'}"&gt;&lt;/vue-csv-import&gt;</code></pre>
+                        <h4>Source:</h4>
+                        <pre><code>&lt;vue-csv-import v-model="csv" :map-fields="['name', 'age']"&gt;&lt;/vue-csv-import&gt;</code></pre>
                     </div>
                 </div>
                 <div class="row mt-5">
                     <div class="col-8 offset-2">
                         <h4 class="mb-4">Result:</h4>
-                        <vue-csv-import v-model="csv" :map-fields="{field1: 'Label 1', field2: 'Label 2'}"></vue-csv-import>
+                        <vue-csv-import v-model="csv" :map-fields="['name', 'age']"></vue-csv-import>
                         <div class="mt-2">
                             {{ csv }}
                         </div>
