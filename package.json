@@ -35,7 +35,8 @@
   "dependencies": {
     "axios": "^0.19.0",
     "lodash": "^4.17.14",
-    "papaparse": "^5.0.0"
+    "papaparse": "^5.0.0",
+    "vue": "^2.5.22"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",
