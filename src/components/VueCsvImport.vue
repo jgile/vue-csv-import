@@ -75,18 +75,15 @@
             },
             callback: {
                 type: Function,
-                default: () => {
-                }
+                default: () => ({})
             },
             catch: {
                 type: Function,
-                default: () => {
-                }
+                default: () => ({})
             },
             finally: {
                 type: Function,
-                default: () => {
-                }
+                default: () => ({})
             },
             parseConfig: {
                 type: Object,

@@ -1,7 +1,7 @@
 module.exports = {
     presets: [
         ['@vue/app', {
-            polyfills: false,
+            polyfills: true,
             useBuiltIns: false
         }]
     ]
