@@ -63,6 +63,7 @@
     import _ from 'lodash';
     import axios from 'axios';
     import Papa from 'papaparse';
+    import mimeTypes from "mime-types";
 
     export default {
         props: {
@@ -198,10 +199,11 @@
             },
             validFileMimeType() {
                 let file = this.$refs.csv.files[0];
+                const mimeType = file.type === "" ? mimeTypes.lookup(file.name) : file.type;
 
                 if (file) {
                     this.fileSelected = true;
-                    this.isValidFileMimeType = this.validation ? this.validateMimeType(file.type) : true;
+                    this.isValidFileMimeType = this.validation ? this.validateMimeType(mimeType) : true;
                 } else {
                     this.isValidFileMimeType = !this.validation;
                     this.fileSelected = false;
