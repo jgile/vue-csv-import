@@ -26,7 +26,6 @@
     "build:demo": "vue-cli-service --mode development build --dest ./dist/demo ./demo/main",
     "build": "vue-cli-service build --target lib --name VueCsvImport src/index.js",
     "lint": "vue-cli-service lint",
-    "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit"
   },
   "peerDependencies": {
