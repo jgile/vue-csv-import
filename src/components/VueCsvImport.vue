@@ -4,19 +4,25 @@
             <div class="vue-csv-uploader-part-one">
                 <div class="form-check form-group csv-import-checkbox" v-if="headers === null">
                     <slot name="hasHeaders" :headers="hasHeaders" :toggle="toggleHasHeaders">
-                        <input :class="checkboxClass" type="checkbox" id="hasHeaders" :value="hasHeaders" @change="toggleHasHeaders">
-                        <label class="form-check-label" for="hasHeaders">
+                        <input :class="checkboxClass" type="checkbox" :id="makeId('hasHeaders')" :value="hasHeaders" @change="toggleHasHeaders">
+                        <label class="form-check-label" :for="makeId('hasHeaders')">
                             File Has Headers
                         </label>
                     </slot>
-
                 </div>
                 <div class="form-group csv-import-file">
-                    <input ref="csv" type="file" :class="inputClass" name="csv">
+                    <input ref="csv" type="file" @change.prevent="validFileMimeType" :class="inputClass" name="csv">
+                    <slot name="error" v-if="showErrorMessage">
+                        <div class="invalid-feedback d-block">
+                            File type is invalid
+                        </div>
+                    </slot>
                 </div>
                 <div class="form-group">
                     <slot name="next" :load="load">
-                        <input type="submit" :class="buttonClass" @click.prevent="load" :value="loadBtnText">
+                        <button type="submit" :disabled="disabledNextButton" :class="buttonClass" @click.prevent="load">
+                            {{ loadBtnText }}
+                        </button>
                     </slot>
                 </div>
             </div>
@@ -35,7 +41,7 @@
                         <tr v-for="(field, key) in fieldsToMap" :key="key">
                             <td>{{ field.label }}</td>
                             <td>
-                                <select class="form-control" v-model="map[field.key]">
+                                <select class="form-control" :name="`csv_uploader_map_${key}`" v-model="map[field.key]">
                                     <option v-for="(column, key) in firstRow" :key="key" :value="key">{{ column }}</option>
                                 </select>
                             </td>
@@ -54,9 +60,10 @@
 </template>
 
 <script>
-    import _ from 'lodash';
+    import { drop, every, forEach, get, isArray, map, set } from 'lodash';
     import axios from 'axios';
     import Papa from 'papaparse';
+    import mimeTypes from "mime-types";
 
     export default {
         props: {
@@ -69,18 +76,15 @@
             },
             callback: {
                 type: Function,
-                default: () => {
-                }
+                default: () => ({})
             },
             catch: {
                 type: Function,
-                default: () => {
-                }
+                default: () => ({})
             },
             finally: {
                 type: Function,
-                default: () => {
-                }
+                default: () => ({})
             },
             parseConfig: {
                 type: Object,
@@ -114,6 +118,16 @@
             inputClass: {
                 type: String,
                 default: "form-control-file"
+            },
+            validation: {
+                type: Boolean,
+                default: true,
+            },
+            fileMimeTypes: {
+                type: Array,
+                default: () => {
+                    return ["text/csv", "text/x-csv", "application/vnd.ms-excel", "text/plain"];
+                }
             }
         },
 
@@ -126,20 +140,22 @@
             hasHeaders: true,
             csv: null,
             sample: null,
+            isValidFileMimeType: false,
+            fileSelected: false
         }),
 
         created() {
             this.hasHeaders = this.headers;
 
-            if (_.isArray(this.mapFields)) {
-                this.fieldsToMap = _.map(this.mapFields, (item) => {
+            if (isArray(this.mapFields)) {
+                this.fieldsToMap = map(this.mapFields, (item) => {
                     return {
                         key: item,
                         label: item
                     };
                 });
             } else {
-                this.fieldsToMap = _.map(this.mapFields, (label, key) => {
+                this.fieldsToMap = map(this.mapFields, (label, key) => {
                     return {
                         key: key,
                         label: label
@@ -169,24 +185,39 @@
             buildMappedCsv() {
                 const _this = this;
 
-                let csv = this.hasHeaders ? _.drop(this.csv) : this.csv;
+                let csv = this.hasHeaders ? drop(this.csv) : this.csv;
 
-                return _.map(csv, (row) => {
+                return map(csv, (row) => {
                     let newRow = {};
 
-                    _.forEach(_this.map, (column, field) => {
-                        _.set(newRow, field, _.get(row, column));
+                    forEach(_this.map, (column, field) => {
+                        set(newRow, field, get(row, column));
                     });
 
                     return newRow;
                 });
             },
+            validFileMimeType() {
+                let file = this.$refs.csv.files[0];
+                const mimeType = file.type === "" ? mimeTypes.lookup(file.name) : file.type;
+
+                if (file) {
+                    this.fileSelected = true;
+                    this.isValidFileMimeType = this.validation ? this.validateMimeType(mimeType) : true;
+                } else {
+                    this.isValidFileMimeType = !this.validation;
+                    this.fileSelected = false;
+                }
+            },
+            validateMimeType(type) {
+                return this.fileMimeTypes.indexOf(type) > -1;
+            },
             load() {
                 const _this = this;
 
                 this.readFile((output) => {
-                    _this.sample = _.get(Papa.parse(output, { preview: 2, skipEmptyLines: true }), "data");
-                    _this.csv = _.get(Papa.parse(output, { skipEmptyLines: true }), "data");
+                    _this.sample = get(Papa.parse(output, { preview: 2, skipEmptyLines: true }), "data");
+                    _this.csv = get(Papa.parse(output, { skipEmptyLines: true }), "data");
                 });
             },
             readFile(callback) {
@@ -204,27 +235,38 @@
             },
             toggleHasHeaders() {
                 this.hasHeaders = !this.hasHeaders;
+            },
+            makeId(id) {
+                return `${id}${this._uid}`;
             }
         },
         watch: {
             map: {
+                deep: true,
                 handler: function (newVal) {
                     if (!this.url) {
-                        var hasAllKeys = this.mapFields.every(function (item) {
+                        let hasAllKeys = Array.isArray(this.mapFields) ? every(this.mapFields, function (item) {
                             return newVal.hasOwnProperty(item);
+                        }) : every(this.mapFields, function (item, key) {
+                            return newVal.hasOwnProperty(key);
                         });
 
                         if (hasAllKeys) {
                             this.submit();
                         }
                     }
-                },
-                deep: true
+                }
             }
         },
         computed: {
             firstRow() {
-                return _.get(this, "sample.0");
+                return get(this, "sample.0");
+            },
+            showErrorMessage() {
+                return this.fileSelected && !this.isValidFileMimeType;
+            },
+            disabledNextButton() {
+                return !this.isValidFileMimeType;
             }
         },
     };
