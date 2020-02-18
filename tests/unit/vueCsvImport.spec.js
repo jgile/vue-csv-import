@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import { VueCsvImportPlugin } from '../../src/index';
 import VueCsvImport from '../../src/components/VueCsvImport';

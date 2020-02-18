@@ -60,7 +60,7 @@
 </template>
 
 <script>
-    import _ from 'lodash';
+    import { drop, every, forEach, get, isArray, map, set } from 'lodash';
     import axios from 'axios';
     import Papa from 'papaparse';
     import mimeTypes from "mime-types";
@@ -147,15 +147,15 @@
         created() {
             this.hasHeaders = this.headers;
 
-            if (_.isArray(this.mapFields)) {
-                this.fieldsToMap = _.map(this.mapFields, (item) => {
+            if (isArray(this.mapFields)) {
+                this.fieldsToMap = map(this.mapFields, (item) => {
                     return {
                         key: item,
                         label: item
                     };
                 });
             } else {
-                this.fieldsToMap = _.map(this.mapFields, (label, key) => {
+                this.fieldsToMap = map(this.mapFields, (label, key) => {
                     return {
                         key: key,
                         label: label
@@ -185,13 +185,13 @@
             buildMappedCsv() {
                 const _this = this;
 
-                let csv = this.hasHeaders ? _.drop(this.csv) : this.csv;
+                let csv = this.hasHeaders ? drop(this.csv) : this.csv;
 
-                return _.map(csv, (row) => {
+                return map(csv, (row) => {
                     let newRow = {};
 
-                    _.forEach(_this.map, (column, field) => {
-                        _.set(newRow, field, _.get(row, column));
+                    forEach(_this.map, (column, field) => {
+                        set(newRow, field, get(row, column));
                     });
 
                     return newRow;
@@ -216,8 +216,8 @@
                 const _this = this;
 
                 this.readFile((output) => {
-                    _this.sample = _.get(Papa.parse(output, { preview: 2, skipEmptyLines: true }), "data");
-                    _this.csv = _.get(Papa.parse(output, { skipEmptyLines: true }), "data");
+                    _this.sample = get(Papa.parse(output, { preview: 2, skipEmptyLines: true }), "data");
+                    _this.csv = get(Papa.parse(output, { skipEmptyLines: true }), "data");
                 });
             },
             readFile(callback) {
@@ -245,9 +245,9 @@
                 deep: true,
                 handler: function (newVal) {
                     if (!this.url) {
-                        let hasAllKeys = Array.isArray(this.mapFields) ? _.every(this.mapFields, function (item) {
+                        let hasAllKeys = Array.isArray(this.mapFields) ? every(this.mapFields, function (item) {
                             return newVal.hasOwnProperty(item);
-                        }) : _.every(this.mapFields, function (item, key) {
+                        }) : every(this.mapFields, function (item, key) {
                             return newVal.hasOwnProperty(key);
                         });
 
@@ -260,7 +260,7 @@
         },
         computed: {
             firstRow() {
-                return _.get(this, "sample.0");
+                return get(this, "sample.0");
             },
             showErrorMessage() {
                 return this.fileSelected && !this.isValidFileMimeType;
