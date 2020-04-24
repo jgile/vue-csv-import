@@ -258,15 +258,15 @@
                 }
             },
             sample(newVal, oldVal) {
-                //auto match things in map to the sample
-                console.log(newVal, oldVal)
-                this.fieldsToMap.forEach(field => {
-                    newVal[0].forEach((columnName, index) => {
-                        if(field.key === columnName){
-                            this.map[field.key] = index;
-                        }
-                    })
-                })
+                if(newVal !== null){
+                    this.fieldsToMap.forEach(field => {
+                        newVal[0].forEach((columnName, index) => {
+                            if(field.key === columnName){
+                                this.map[field.key] = index;
+                            }
+                        });
+                    });
+                }
             }
         },
         computed: {
