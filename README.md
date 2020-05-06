@@ -108,6 +108,7 @@ Options:
 | loadBtnText | "Submit" | The value of the initial load file button |
 | headers | null | Define whether csv has headers by default.  Removes checkbox. |
 | fileMimeTypes | ["text/csv"] | Array of valid mime types
+| canIgnore | false | Can fields be ignored (Boolean)
 
 Slots:
 

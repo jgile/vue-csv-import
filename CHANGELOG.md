@@ -40,3 +40,4 @@ All notable changes to `vue-csv-import` will be documented in this file
 
 ## 2.3.7
 - added class to table select fields
+- added canIgnore to allow users to ignore fields if required
