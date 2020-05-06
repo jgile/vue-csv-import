@@ -37,3 +37,6 @@ All notable changes to `vue-csv-import` will be documented in this file
 - added names to select fields
 - added other mime types to default accepted types array
 - added some more meaningful tests
+
+## 2.3.7
+- added class to table select fields
