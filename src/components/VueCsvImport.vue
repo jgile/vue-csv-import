@@ -42,6 +42,7 @@
                             <td>{{ field.label }}</td>
                             <td>
                                 <select :class="tableSelectClass" :name="`csv_uploader_map_${key}`" v-model="map[field.key]">
+                                    <option :value="null" v-if="canIgnore">Ignore</option>
                                     <option v-for="(column, key) in firstRow" :key="key" :value="key">{{ column }}</option>
                                 </select>
                             </td>
@@ -132,6 +133,10 @@
             tableSelectClass: {
                 type: String,
                 default: 'form-control'
+            },
+            canIgnore: {
+               type: Boolean,
+               default: false,
             }
         },
 
