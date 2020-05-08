@@ -265,6 +265,17 @@
                         }
                     }
                 }
+            },
+            sample(newVal, oldVal) {
+                if(newVal !== null){
+                    this.fieldsToMap.forEach(field => {
+                        newVal[0].forEach((columnName, index) => {
+                            if(field.key === columnName){
+                                this.map[field.key] = index;
+                            }
+                        });
+                    });
+                }
             }
         },
         computed: {
