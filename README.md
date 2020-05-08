@@ -103,10 +103,12 @@ Options:
 | checkboxClass | "form-check-input" | The class to be added to the checkbox |
 | buttonClass | "btn btn-default" | The class to be added to buttons |
 | inputClass | "form-control-file" | The class to be added to the file input |
+| tableSelectClass | "form-control" | The class to be added to the table element selects |
 | submitBtnText | "Submit" | The value of the final submit button |
 | loadBtnText | "Submit" | The value of the initial load file button |
 | headers | null | Define whether csv has headers by default.  Removes checkbox. |
 | fileMimeTypes | ["text/csv"] | Array of valid mime types
+| canIgnore | false | Can fields be ignored (Boolean)
 
 Slots:
 
