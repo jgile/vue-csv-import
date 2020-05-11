@@ -49,7 +49,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <div class="form-group" v-if="url">
+                    <div class="form-group">
                         <slot name="submit" :submit="submit">
                             <input type="submit" :class="buttonClass" @click.prevent="submit" :value="submitBtnText">
                         </slot>
