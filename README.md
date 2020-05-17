@@ -109,6 +109,7 @@ Options:
 | headers | null | Define whether csv has headers by default.  Removes checkbox. |
 | fileMimeTypes | ["text/csv"] | Array of valid mime types
 | canIgnore | false | Can fields be ignored (Boolean)
+| ignoreOptionText | "Ignore" | The value of the ignore option in element selects
 
 Slots:
 
