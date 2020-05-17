@@ -127,7 +127,7 @@
             fileMimeTypes: {
                 type: Array,
                 default: () => {
-                    return ["text/csv", "text/x-csv", "application/vnd.ms-excel", "text/plain"];
+                    return ["text/csv", "text/x-csv", "text/plain"];
                 }
             },
             tableSelectClass: {
