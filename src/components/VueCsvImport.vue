@@ -42,7 +42,7 @@
                             <td>{{ field.label }}</td>
                             <td>
                                 <select :class="tableSelectClass" :name="`csv_uploader_map_${key}`" v-model="map[field.key]">
-                                    <option :value="null" v-if="canIgnore">Ignore</option>
+                                    <option :value="null" v-if="canIgnore">{{ ignoreOptionText }}</option>
                                     <option v-for="(column, key) in firstRow" :key="key" :value="key">{{ column }}</option>
                                 </select>
                             </td>
@@ -75,6 +75,9 @@
             mapFields: {
                 required: true
             },
+            mapFieldsNames: {
+                required: false
+            },
             callback: {
                 type: Function,
                 default: () => ({})
@@ -99,6 +102,10 @@
             loadBtnText: {
                 type: String,
                 default: "Next"
+            },
+            ignoreOptionText: {
+                type: String,
+                default: "Ignore"
             },
             submitBtnText: {
                 type: String,
@@ -171,25 +178,28 @@
                     };
                 });
             }
+
         },
 
         methods: {
             submit() {
                 const _this = this;
-                this.form.csv = this.buildMappedCsv();
-                this.$emit('input', this.form.csv);
 
                 if (this.url) {
-                    axios.post(this.url, this.form).then(response => {
+                    axios.post(this.url, this.form.csv).then(response => {
                         _this.callback(response);
                     }).catch(response => {
                         _this.catch(response);
                     }).finally(response => {
                         _this.finally(response);
                     });
-                } else {
-                    _this.callback(this.form.csv);
                 }
+            },
+            saveMappedCSVtoJson() {
+                const _this = this;
+                this.form.csv = this.buildMappedCsv();
+                this.$emit('input', this.form.csv);
+                _this.callback(this.form.csv);
             },
             buildMappedCsv() {
                 const _this = this;
@@ -253,18 +263,20 @@
             map: {
                 deep: true,
                 handler: function (newVal) {
-                    if (!this.url) {
-                        let hasAllKeys = Array.isArray(this.mapFields) ? every(this.mapFields, function (item) {
-                            return newVal.hasOwnProperty(item);
-                        }) : every(this.mapFields, function (item, key) {
-                            return newVal.hasOwnProperty(key);
-                        });
+                    let hasAllKeys = isArray(this.mapFields) ? every(this.mapFields, function (item) {
+                        return newVal.hasOwnProperty(item);
+                    }) : every(this.mapFields, function (item, key) {
+                        return newVal.hasOwnProperty(key);
+                    });
 
-                        if (hasAllKeys) {
-                            this.submit();
-                        }
+                    if (hasAllKeys) {
+                        this.saveMappedCSVtoJson();
                     }
                 }
+            },
+            hasHeaders(newVal, oldVal) {
+                if(this.csv != null)
+                    this.saveMappedCSVtoJson();
             },
             sample(newVal, oldVal) {
                 if(newVal !== null){
