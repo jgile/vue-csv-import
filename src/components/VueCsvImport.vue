@@ -75,9 +75,6 @@
             mapFields: {
                 required: true
             },
-            mapFieldsNames: {
-                required: false
-            },
             callback: {
                 type: Function,
                 default: () => ({})
