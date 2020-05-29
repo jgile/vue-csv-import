@@ -7,7 +7,9 @@ describe('VueCsvImport', () => {
     const localVue = createLocalVue();
     const csv = [["name", "age", "grade"], ["Susan", "41", "a"], ["Mike", "5", "b"], ["Jake", "33", "c"], ["Jill", "30", "d"]];
     const sample = [["name", "age", "grade"], ["Susan", "41", "a"]];
+    const sampleCapitalized = [["Name", "Age", "Grade"], ["Susan", "41", "a"]];
     const map = { "name": 0, "age": 1 };
+    const fields = [{ key: "name", label: "name" }, { key: "age", label: "age" }]
 
     beforeEach(() => {
         wrapper = shallowMount(VueCsvImport, { propsData: { mapFields: ['name_map', 'age_map', 'grade_map'], url: '/hello' } });
@@ -73,4 +75,15 @@ describe('VueCsvImport', () => {
         expect(wrapper.vm.validateMimeType('application/vnd.ms-excel')).toEqual(true);
         expect(wrapper.vm.validateMimeType('text/plain')).toEqual(true);
     });
+
+    it('automatically maps fields when cases match', async () => {
+        objWrapper.setProps({ autoMatchFields: true })
+        objWrapper.setData({ hasHeaders: true, sample: sampleCapitalized, csv: csv, fieldsToMap: fields });
+        expect(objWrapper.vm.map).toEqual({"age": 1, "name": 0});
+    })
+    it('automatically maps fields when cases do not match', async () => {
+        objWrapper.setProps({ autoMatchFields: true, autoMatchIgnoreCase: true })
+        objWrapper.setData({ hasHeaders: true, sample: sample, csv: csv, fieldsToMap: fields });
+        expect(objWrapper.vm.map).toEqual({"age": 1, "name": 0});
+    })
 });

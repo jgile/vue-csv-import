@@ -96,6 +96,8 @@ Options:
 | ------ | ------- | ----------- |
 | mapFields | N/A | (required) These are the field names that the CSV will be mapped to |
 | url | null | If present, the component will post the mapped values to this url.  Otherwise, the component will only emit the value to be used as a normal input |
+| autoMatchFields | false | If field names match csv headers, automatically match them. Leading and trailing white space is trimmed before comparison. |
+| autoMatchIgnoreCase | false | Ignore case when automatically matching fields (autoMatchFields required) |
 | callback  | null | The callback to be called on successful upload. (url required) |
 | catch | null | The function to be called on an error in posting (url required) |
 | finally | null | The function to be called no matter what on posting (url required) |
