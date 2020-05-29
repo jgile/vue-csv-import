@@ -104,6 +104,14 @@
                 type: String,
                 default: "Submit"
             },
+            autoMatchFields: {
+                type: Boolean,
+                default: false
+            },
+            autoMatchIgnoreCase: {
+                type: Boolean,
+                default: false
+            },
             tableClass: {
                 type: String,
                 default: "table"
@@ -267,14 +275,22 @@
                 }
             },
             sample(newVal, oldVal) {
-                if(newVal !== null){
-                    this.fieldsToMap.forEach(field => {
-                        newVal[0].forEach((columnName, index) => {
-                            if(field.key === columnName){
-                                this.map[field.key] = index;
-                            }
+                if(this.autoMatchFields){
+                    if(newVal !== null){
+                        this.fieldsToMap.forEach(field => {
+                            newVal[0].forEach((columnName, index) => {
+                                if(this.autoMatchIgnoreCase === true){
+                                    if(field.label.toLowerCase().trim() === columnName.toLowerCase().trim()){
+                                        this.map[field.key] = index;
+                                    }
+                                } else{
+                                    if(field.label.trim() === columnName.trim()){
+                                        this.map[field.key] = index;
+                                    }
+                                }
+                            });
                         });
-                    });
+                    }
                 }
             }
         },
