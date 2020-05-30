@@ -11,7 +11,7 @@
                     </slot>
                 </div>
                 <div class="form-group csv-import-file">
-                    <input ref="csv" type="file" @change.prevent="validFileMimeType" :class="inputClass" name="csv">
+                    <input ref="csv" type="file" @change.prevent="validFileMimeType" :class="inputClass" name="csv" :accept="fileMimeTypes">
                     <slot name="error" v-if="showErrorMessage">
                         <div class="invalid-feedback d-block">
                             File type is invalid
@@ -195,7 +195,7 @@
             saveMappedCSVtoJson() {
                 const _this = this;
                 this.form.csv = this.buildMappedCsv();
-                this.$emit('input', this.form.csv);
+                this.$emit('input', this.form.csv); //return value from component
                 _this.callback(this.form.csv);
             },
             buildMappedCsv() {
