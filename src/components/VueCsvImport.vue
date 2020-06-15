@@ -261,7 +261,6 @@
             map: {
                 deep: true,
                 handler: function (newVal) {
-                    console.log("firing map")
                     if (!this.url) {
                         let hasAllKeys = Array.isArray(this.mapFields) ? every(this.mapFields, function (item) {
                             return newVal.hasOwnProperty(item);
