@@ -79,18 +79,19 @@ describe('VueCsvImport', () => {
     it('automatically maps fields when cases match', async () => {
         objWrapper.setProps({ autoMatchFields: true })
         objWrapper.setData({ hasHeaders: true, sample: sampleCapitalized, csv: csv, fieldsToMap: fields });
-        expect(objWrapper.vm.map).toEqual({"age": 1, "name": 0});
-    })
+        expect(objWrapper.vm.map).toEqual({ "age": 1, "name": 0 });
+    });
 
     it('automatically maps fields when cases do not match', async () => {
         objWrapper.setProps({ autoMatchFields: true, autoMatchIgnoreCase: true })
         objWrapper.setData({ hasHeaders: true, sample: sample, csv: csv, fieldsToMap: fields });
-        expect(objWrapper.vm.map).toEqual({"age": 1, "name": 0});
-    })
+        expect(objWrapper.vm.map).toEqual({ "age": 1, "name": 0 });
+    });
+
     it('automatically maps fields when cases match', async () => {
         objWrapper.setProps({ autoMatchFields: true })
         objWrapper.setData({ hasHeaders: true, sample: sampleCapitalized, csv: csv, fieldsToMap: fields });
         expect(objWrapper.vm.form.csv).not.toEqual(null);
-    })
+    });
 
 });
