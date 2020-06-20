@@ -11,7 +11,9 @@
                     </slot>
                 </div>
                 <div class="form-group csv-import-file">
-                    <input ref="csv" type="file" @change.prevent="validFileMimeType" :class="inputClass" name="csv">
+                    <slot name="input" :change="change">
+                        <input type="file" @change.prevent="change" :class="inputClass" name="csv">
+                    </slot>
                     <slot name="error" v-if="showErrorMessage">
                         <div class="invalid-feedback d-block">
                             File type is invalid
@@ -108,6 +110,10 @@
                 type: Boolean,
                 default: false
             },
+            autoLoad: {
+                type: Boolean,
+                default: false
+            },
             autoMatchIgnoreCase: {
                 type: Boolean,
                 default: false
@@ -151,6 +157,7 @@
         data: () => ({
             form: {
                 csv: null,
+                file: null,
             },
             fieldsToMap: [],
             map: {},
@@ -214,13 +221,17 @@
                     return newRow;
                 });
             },
-            validFileMimeType() {
-                let file = this.$refs.csv.files[0];
-                const mimeType = file.type === "" ? mimeTypes.lookup(file.name) : file.type;
+            change(event) {
+                this.form.file = event.target.files[0];
+                const mimeType = this.form.file.type === "" ? mimeTypes.lookup(this.form.file.name) : this.form.file.type;
 
-                if (file) {
+                if (this.form.file) {
                     this.fileSelected = true;
                     this.isValidFileMimeType = this.validation ? this.validateMimeType(mimeType) : true;
+
+                    if (this.autoLoad) {
+                      this.load();
+                    }
                 } else {
                     this.isValidFileMimeType = !this.validation;
                     this.fileSelected = false;
@@ -238,11 +249,9 @@
                 });
             },
             readFile(callback) {
-                let file = this.$refs.csv.files[0];
-
-                if (file) {
+                if (this.form.file) {
                     let reader = new FileReader();
-                    reader.readAsText(file, "UTF-8");
+                    reader.readAsText(this.form.file, "UTF-8");
                     reader.onload = function (evt) {
                         callback(evt.target.result);
                     };

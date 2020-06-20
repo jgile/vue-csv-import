@@ -69,6 +69,10 @@ With all available slots:
         </label>
     </template>
 
+    <template slot="input" slot-scope="{change}">
+        <input type="file" @change.prevent="change">
+    </template>
+
     <template slot="error">
         File type is invalid
     </template>
@@ -96,6 +100,7 @@ Options:
 | ------ | ------- | ----------- |
 | mapFields | N/A | (required) These are the field names that the CSV will be mapped to |
 | url | null | If present, the component will post the mapped values to this url.  Otherwise, the component will only emit the value to be used as a normal input |
+| autoLoad | false | Auto load csv to field mapping table after changed input |
 | autoMatchFields | false | If field names match csv headers, automatically match them. Leading and trailing white space is trimmed before comparison. |
 | autoMatchIgnoreCase | false | Ignore case when automatically matching fields (autoMatchFields required) |
 | callback  | null | The callback to be called on successful upload. (url required) |
@@ -117,6 +122,7 @@ Slots:
 | Slot | Description |
 | ------ | ----------- |
 | thead | The content of "thead" in the field mapping table |
+| input | The content of "input" file |
 | next | The next button.  Use slot-scope "next" to load csv. |
 | submit | The submit button. Use slot-scope "submit" to submit form. |
 | hasHeaders | The "has headers" checkbox. Use slot-scope "toggle" and "headers". |
