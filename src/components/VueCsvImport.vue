@@ -281,11 +281,11 @@
                             newVal[0].forEach((columnName, index) => {
                                 if(this.autoMatchIgnoreCase === true){
                                     if(field.label.toLowerCase().trim() === columnName.toLowerCase().trim()){
-                                        this.map[field.key] = index;
+                                        this.$set(this.map, field.key, index);
                                     }
                                 } else{
                                     if(field.label.trim() === columnName.trim()){
-                                        this.map[field.key] = index;
+                                        this.$set(this.map, field.key, index);
                                     }
                                 }
                             });
