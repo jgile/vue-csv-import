@@ -7,7 +7,7 @@ set -e
 npm run build:demo
 
 # navigate into the build output directory
-cd dist/demo
+cd demo
 git init
 git add -A
 git commit -m 'deploy'

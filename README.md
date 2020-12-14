@@ -5,126 +5,360 @@
 [![CircleCI](https://circleci.com/gh/jgile/vue-csv-import.svg?style=svg)](https://circleci.com/gh/jgile/vue-csv-import)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jgile/vue-csv-import/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jgile/vue-csv-import/?branch=master)
 
+This version is for Vue 3. [Click here for Vue 2](https://github.com/jgile/vue-csv-import/tree/vue2).
 
-## Demo
+VueCsvImport is completely un-styled and customizable. All markup can be replaced and all text can be customized.
 
 [Demo](https://jgile.github.io/vue-csv-import/)
 
-
-Go to the "demo" folder for a working example.
+---
 
 ## Installation
 
-You can install the package via yarn:
+You can install the package via npm or yarn:
 
 ```bash
+# npm
+npm install vue-csv-import
+
+# Yarn
 yarn add vue-csv-import
 ```
 
-or npm:
-
-```bash
-npm install vue-csv-import --save
-```
-
-## Usage
-Import component:
+You can import components individually.
 
 ```js
-import { VueCsvImport } from 'vue-csv-import';
+import {VueCsvToggleHeaders, VueCsvSubmit, VueCsvMap, VueCsvInput, VueCsvErrors, VueCsvImport} from 'vue-csv-import';
+```
 
-new Vue({
-    components: { VueCsvImport },
-    el: '#app',
-});
+Or import all as a plugin.
+
+```js
+import {createApp} from "vue";
+import App from "./App.vue";
+import {VueCsvImportPlugin} from "vue-csv-import";
+
+createApp(App)
+    .use(VueCsvImportPlugin)
+    .mount("#app");
+```
+
+A minimal working example with all components will look something like this:
+
+```vue
+
+<template>
+    <vue-csv-import
+        v-model="csv"
+        :fields="{name: {required: false, label: 'Name'}, age: {required: true, label: 'Age'}}"
+    >
+        <vue-csv-toggle-headers></vue-csv-toggle-headers>
+        <vue-csv-errors></vue-csv-errors>
+        <vue-csv-input></vue-csv-input>
+        <vue-csv-map></vue-csv-map>
+    </vue-csv-import>
+</template>
+```
+
+---
+
+## Components
+
+- [VueCsvImport](#VueCsvImport) - The primary component wrapper. All other components should be used within this component.
+- [VueCsvToggleHeaders](#VueCsvToggleHeaders) - Toggles whether CSV should be read as having headers or not.
+- [VueCsvInput](#VueCsvInput) - The file input field to upload your CSV
+- [VueCsvMap](#VueCsvMap) - Used to map CSV columns to your fields
+- [VueCsvSubmit](#VueCsvSubmit) - Used to POST the mapped CSV.
+- [VueCsvErrors](#VueCsvErrors) - Used to display errors.
+
+### VueCsvImport
+
+Primary wrapper component.
+
+```vue
+
+<template>
+    <vue-csv-import
+        v-model="csv"
+        :fields="{
+            name: {
+                required: false,
+                label: 'Name'
+            },
+            age: {
+                required: true,
+                label: 'Age'
+            }
+        }"
+    >
+        <!-- Other Components -->
+    </vue-csv-import>
+</template>
 
 ```
 
-Include in template:
-```html
-<vue-csv-import url="/url/to/post" :map-fields="['array', 'of', 'field', 'names']"></vue-csv-import>
+#### Props:
 
+| Prop          | Default   | Description |
+| ------        | -------   | ----------- |
+| fields        | null      | (required) The field names used to map the CSV. |
+| text          | see below | (optional) Override the default text used in the component. |
+| modelValue    | N/A       | (optional) Binds to the mapped CSV object. |
+
+#### Default text
+
+```json
+{
+    errors: {
+        fileRequired: 'A file is required',
+        invalidMimeType: "Invalid file type"
+    },
+    toggleHeaders: 'File has headers',
+    submitBtn: 'Submit',
+    fieldColumn: 'Field',
+    csvColumn: 'Column'
+}
 ```
-or with labels:
-```html
-<vue-csv-import url="/url/to/post" :map-fields="{field1: 'Label 1', field2: 'Label 2'}"></vue-csv-import>
 
+#### Slot Props:
+
+| Prop          | Description |
+| ------        | ----------- |
+| file          | The selected file |
+| errors        | Current errors |
+| fields        | The fields object |
+
+---
+
+### VueCsvToggleHeaders
+
+Allows user to toggle whether the CSV has headers or not.
+
+```vue
+
+<template>
+    <vue-csv-import>
+        ...
+        <vue-csv-toggle-headers></vue-csv-toggle-headers>
+        ...
+    </vue-csv-import>
+</template>
 ```
-or with v-model:
-```html
-<vue-csv-import v-model="parseCsv" :map-fields="{field1: 'Label 1', field2: 'Label 2'}"></vue-csv-import>
 
+Or with custom markup:
+
+```vue
+
+<template>
+    <vue-csv-import>
+        ...
+        <vue-csv-toggle-headers v-slot="{hasHeaders, toggle}">
+            <button @click.prevent="toggle">Has Headers</button>
+        </vue-csv-toggle-headers>
+        ...
+    </vue-csv-import>
+</template>
 ```
-With all available slots:
-```html
-<vue-csv-import
-    v-model="csv"
-    url="/hello"
-    :map-fields="['name', 'age']">
 
-    <template slot="hasHeaders" slot-scope="{headers, toggle}">
-        <label>
-            <input type="checkbox" id="hasHeaders" :value="headers" @change="toggle">
-            Headers?
-        </label>
-    </template>
+#### Props:
 
-    <template slot="error">
-        File type is invalid
-    </template>
+| Prop                  | Default   | Description |
+| ------                | -------   | ----------- |
+| checkboxAttributes    | {}        | (optional) Attributes to bind to the checkbox. |
+| labelAttributes       | {}        | (optional) Attributes to bind to the label. |
 
-    <template slot="thead">
-        <tr>
-            <th>My Fields</th>
-            <th>Column</th>
-        </tr>
-    </template>
+#### Slot Props:
 
-    <template slot="next" slot-scope="{load}">
-        <button @click.prevent="load">load!</button>
-    </template>
+| Prop          | Description |
+| ------        | ----------- |
+| hasHeaders    | Whether CSV is marked as having headers. |
+| toggle        | Toggle the 'hasHeaders' value. |
 
-    <template slot="submit" slot-scope="{submit}">
-        <button @click.prevent="submit">send!</button>
-    </template>
-</vue-csv-import>
+---
 
+### VueCsvInput
+
+The file field for importing CSV.
+
+```vue
+
+<template>
+    <vue-csv-import>
+        ...
+        <vue-csv-input name="file"></vue-csv-input>
+        ...
+    </vue-csv-import>
+</template>
 ```
-Options:
 
-| Option | Default | Description |
-| ------ | ------- | ----------- |
-| mapFields | N/A | (required) These are the field names that the CSV will be mapped to |
-| url | null | If present, the component will post the mapped values to this url.  Otherwise, the component will only emit the value to be used as a normal input |
-| autoMatchFields | false | If field names match csv headers, automatically match them. Leading and trailing white space is trimmed before comparison. |
-| autoMatchIgnoreCase | false | Ignore case when automatically matching fields (autoMatchFields required) |
-| callback  | null | The callback to be called on successful upload. (url required) |
-| catch | null | The function to be called on an error in posting (url required) |
-| finally | null | The function to be called no matter what on posting (url required) |
-| tableClass | "table" | The class to be added to table element |
-| checkboxClass | "form-check-input" | The class to be added to the checkbox |
-| buttonClass | "btn btn-default" | The class to be added to buttons |
-| inputClass | "form-control-file" | The class to be added to the file input |
-| tableSelectClass | "form-control" | The class to be added to the table element selects |
-| submitBtnText | "Submit" | The value of the final submit button |
-| loadBtnText | "Submit" | The value of the initial load file button |
-| headers | null | Define whether csv has headers by default.  Removes checkbox. |
-| fileMimeTypes | ["text/csv"] | Array of valid mime types
-| canIgnore | false | Can fields be ignored (Boolean)
+Or with custom markup:
 
-Slots:
+```vue
 
-| Slot | Description |
+<template>
+    <vue-csv-import>
+        ...
+        <vue-csv-input v-slot="{file, change}">
+            ...
+        </vue-csv-input>
+        ...
+    </vue-csv-import>
+</template>
+```
+
+#### Props:
+
+| Prop          | Default   | Description |
+| ------        | -------   | ----------- |
+| name          | N/A       | (required) The field names used to map the CSV.
+| headers       | true      | (optional) Override the default text used in the component. |
+| parseConfig   | N/A       | (optional) Papaparse config object. |
+| validation    | true      | (optional) Use validation or not |
+| fileMimeTypes | ["text/csv", "text/x-csv", "application/vnd.ms-excel", "text/plain"]       | (optional) Accepted CSV file mime types. |
+
+#### Slot Props:
+
+| Prop          | Description |
+| ------        | ----------- |
+| file    | The current file object |
+| change        | Change the file |
+
+---
+
+### VueCsvMap
+
+Component to map the CSV to the specified fields.
+
+```vue
+
+<template>
+    <vue-csv-import>
+        ...
+        <vue-csv-map></vue-csv-map>
+        ...
+    </vue-csv-import>
+</template>
+```
+
+Or use slot for custom markup:
+
+```vue
+
+<template>
+    <vue-csv-import>
+        ...
+        <vue-csv-map v-slot="{sample, map, fields}">
+            ...
+        </vue-csv-map>
+        ...
+    </vue-csv-import>
+</template>
+```
+
+#### Props:
+
+| Prop                | Default   | Description |
+| ------              | -------   | ----------- |
+| noThead             | false     | (optional) Attributes to bind to the checkbox. |
+| selectAttributes    | {}        | (optional) Attributes to bind to the select fields. |
+| autoMatch           | true      | (optional) Auto-match fields to columns when they share the same name |
+| autoMatchIgnoreCase | true      | (optional) Ignore case when auto-matching |
+
+#### Slot Props:
+
+| Prop   | Description |
 | ------ | ----------- |
-| thead | The content of "thead" in the field mapping table |
-| next | The next button.  Use slot-scope "next" to load csv. |
-| submit | The submit button. Use slot-scope "submit" to submit form. |
-| hasHeaders | The "has headers" checkbox. Use slot-scope "toggle" and "headers". |
+| sample | The first row of the CSV. |
+| map    | The currently mapped fields. |
+| fields | The fields. |
+
+---
+
+### VueCsvSubmit
+
+Displays a button to post the CSV to specified URL.
+
+```vue
+
+<template>
+    <vue-csv-import>
+        ...
+        <vue-csv-submit url="/post/here"></vue-csv-submit>
+        ...
+    </vue-csv-import>
+</template>
+```
+
+Or use slot for custom markup:
+
+```vue
+
+<template>
+    <vue-csv-import>
+        <vue-csv-submit v-slot="{submit, mappedCsv}">
+            <button @click.prevent="submit">Submit!!</button>
+        </vue-csv-submit>
+    </vue-csv-import>
+</template>
+```
+
+#### Props:
+
+| Prop   | Default   | Description |
+| ------ | -------   | ----------- |
+| url    | N/A       | (required) Where to post the CSV. |
+
+#### Slot Props:
+
+| Prop          | Description |
+| ------        | ----------- |
+| submit        | Submit the CSV (POST) |
+| mappedCsv     | The mapped CSV object |
+
+---
+
+### VueCsvErrors
+
+Displays any error messages.
+
+```vue
+
+<template>
+    <vue-csv-import>
+        ...
+        <vue-csv-errors></vue-csv-errors>
+        ...
+    </vue-csv-import>
+</template>
+```
+
+Or use slot for custom markup:
+
+```vue
+
+<template>
+    <vue-csv-import>
+        ...
+        <vue-csv-errors v-slot="{errors}">
+            ...
+        </vue-csv-errors>
+        ...
+    </vue-csv-import>
+</template>
+```
+
+#### Slot Props:
+
+| Prop          | Description |
+| ------        | ----------- |
+| errors        | Object containing errors |
+
+---
 
 ### Testing
 
 ```bash
-npm run test:unit
+npm run test
 ```
 
 ### Changelog

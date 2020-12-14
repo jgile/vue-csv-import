@@ -1,54 +1,50 @@
 {
     "name": "vue-csv-import",
-    "version": "3.3.7",
+    "version": "4.0.0",
     "private": false,
     "description": "Vue.js component to handle CSV uploads with field mapping.",
-    "author": "John Gile",
+    "author": "John Gile <me@jgile.com>",
+    "main": "dist/vue-csv-import.common.js",
+    "unpkg": "dist/vue-csv-import.umd.min.js",
     "scripts": {
-        "serve": "vue-cli-service serve ./demo/main",
-        "build": "vue-cli-service build --target lib --name VueCsvImport src/index.js",
-        "test:unit": "vue-cli-service test:unit",
-        "lint": "vue-cli-service lint",
-        "build:demo": "vue-cli-service --mode development build --dest ./dist/demo ./demo/main",
-        "postinstall": "node "
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build --target lib --name vue-csv-import ./src/index.js --dest ./dist && rm ./dist/demo.html",
+        "build:demo": "vue-cli-service build --mode dev --public-path '/vue-csv-import' --dest ./demo",
+        "test": "vue-cli-service test:unit"
     },
-    "main": "dist/VueCsvImport.umd.js",
-    "browser": "dist/VueCsvImport.common.js",
-    "jsDelivr": "dist/VueCsvImport.umd.min.js",
-    "unpkg": "dist/VueCsvImport.umd.min.js",
     "dependencies": {
-        "axios": "^0.19.2",
-        "core-js": "^3.8.1",
+        "axios": "^0.19.0",
         "lodash": "^4.17.20",
-        "mime-types": "^2.1.27",
-        "papaparse": "^5.3.0",
-        "vue": "^2.6.12"
-    },
-    "devDependencies": {
-        "@vue/cli": "^4.5.9",
-        "@vue/cli-plugin-babel": "~4.4.6",
-        "@vue/cli-plugin-eslint": "^4.5.9",
-        "@vue/cli-plugin-unit-jest": "~4.4.6",
-        "@vue/cli-service": "~4.4.6",
-        "@vue/cli-upgrade": "^3.12.1",
-        "@vue/test-utils": "1.0.0-beta.29",
-        "babel-core": "7.0.0-bridge.0",
-        "babel-eslint": "^10.1.0",
-        "babel-jest": "^23.6.0",
-        "eslint": "^6.7.2",
-        "eslint-plugin-vue": "^6.2.2",
-        "vue-template-compiler": "^2.6.12"
+        "papaparse": "^5.0.0"
     },
     "peerDependencies": {
-        "vue": "^2.5.22"
+        "vue": "^3.0.4"
     },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "~4.5.0",
+        "@vue/cli-plugin-unit-jest": "~4.5.0",
+        "@vue/cli-service": "~4.5.0",
+        "@vue/compiler-sfc": "^3.0.4",
+        "@vue/test-utils": "^2.0.0-0",
+        "typescript": "~3.9.3",
+        "vue-jest": "^5.0.0-0",
+        "core-js": "^3.6.5",
+        "vue": "^3.0.4"
+    },
+    "files": [
+        "dist/*.js"
+    ],
     "bugs": {
         "url": "https://github.com/jgile/vue-csv-import/issues"
     },
     "keywords": [
         "jgile",
         "csv",
-        "map"
+        "map",
+        "vue-csv",
+        "vue-csv-import",
+        "vue3",
+        "import"
     ],
     "license": "MIT",
     "repository": {
