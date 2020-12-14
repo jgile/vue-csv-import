@@ -9,7 +9,7 @@ This version is for Vue 3. [Click here for Vue 2](https://github.com/jgile/vue-c
 
 VueCsvImport is completely un-styled and customizable. All markup can be replaced and all text can be customized.
 
-[Demo](https://jgile.github.io/vue-csv-import/)
+[Demo](https://csb-ng519.jgile.vercel.app/)
 
 ---
 
