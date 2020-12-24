@@ -5,9 +5,10 @@
 [![CircleCI](https://circleci.com/gh/jgile/vue-csv-import.svg?style=svg)](https://circleci.com/gh/jgile/vue-csv-import)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jgile/vue-csv-import/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jgile/vue-csv-import/?branch=master)
 
-This version is for Vue 3. [Click here for Vue 2](https://github.com/jgile/vue-csv-import/tree/vue2).
+VueCsvImport is a completely un-styled, customizable, and modular CSV mapping component.  It allows you to upload a CSV, and map the CSV to pre-defined fields.  
+All markup and text can be replaced and/or customized. This is a complete rebuild for Vue 3 and will NOT work with your old markup from Vue 2.
 
-VueCsvImport is completely un-styled and customizable. All markup can be replaced and all text can be customized.
+This version is for Vue 3. [Click here for Vue 2](https://github.com/jgile/vue-csv-import/tree/vue2).
 
 [Demo](https://csb-ng519.jgile.vercel.app/)
 
