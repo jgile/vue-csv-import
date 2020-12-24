@@ -109,14 +109,14 @@ Primary wrapper component.
 
 ```json
 {
-    errors: {
-        fileRequired: 'A file is required',
-        invalidMimeType: "Invalid file type"
+    "errors": {
+        "fileRequired" : "A file is required",
+        "invalidMimeType" : "Invalid file type"
     },
-    toggleHeaders: 'File has headers',
-    submitBtn: 'Submit',
-    fieldColumn: 'Field',
-    csvColumn: 'Column'
+    "toggleHeaders": "File has headers",
+    "submitBtn": "Submit",
+    "fieldColumn": "Field",
+    "csvColumn": "Column"
 }
 ```
 
