@@ -80,7 +80,6 @@ describe('VueCsvImport', () => {
             }
         });
 
-        console.log(wrapper.vm.$el);
         // expect(wrapper.vm.$el).toMatchSnapshot();
     });
 
