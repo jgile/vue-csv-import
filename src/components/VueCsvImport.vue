@@ -179,26 +179,29 @@ export default {
     }),
 
     created() {
-        this.hasHeaders = this.headers;
-
-        if (isArray(this.mapFields)) {
-            this.fieldsToMap = map(this.mapFields, (item) => {
-                return {
-                    key: item,
-                    label: item,
-                };
-            });
-        } else {
-            this.fieldsToMap = map(this.mapFields, (label, key) => {
-                return {
-                    key: key,
-                    label: label,
-                };
-            });
-        }
+        this.initializeFromProps();
     },
 
     methods: {
+        initializeFromProps() {
+            this.hasHeaders = this.headers;
+
+            if (isArray(this.mapFields)) {
+                this.fieldsToMap = map(this.mapFields, (item) => {
+                    return {
+                        key: item,
+                        label: item,
+                    };
+                });
+            } else {
+                this.fieldsToMap = map(this.mapFields, (label, key) => {
+                    return {
+                        key: key,
+                        label: label,
+                    };
+                });
+            }
+        },
         submit() {
             const _this = this;
             this.form.csv = this.buildMappedCsv();
@@ -316,6 +319,9 @@ export default {
                 }
             }
         },
+        mapFields() {
+            this.initializeFromProps();
+        }
     },
     computed: {
         firstRow() {
