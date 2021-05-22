@@ -25,7 +25,9 @@
         toggleHeaders: 'File has headers',
         submitBtn: 'Submit',
         fieldColumn: 'Field',
-        csvColumn: 'Column'
+        csvColumn: 'Column',
+        requiredField: '*',
+        excludeField: 'Exclude field'
     };
 
     const mapFields = function (fields) {

@@ -18,7 +18,7 @@
     &lt;vue-csv-toggle-headers&gt;&lt;/vue-csv-toggle-headers&gt;
     &lt;vue-csv-errors&gt;&lt;/vue-csv-errors&gt;
     &lt;vue-csv-input&gt;&lt;/vue-csv-input&gt;
-    &lt;vue-csv-map :auto-match="false"&gt;&lt;/vue-csv-map&gt;
+    &lt;vue-csv-table-map :auto-match="false"&gt;&lt;/vue-csv-table-map&gt;
 &lt;/vue-csv-import&gt;</code></pre>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                             <vue-csv-errors></vue-csv-errors>
                             <vue-csv-toggle-headers></vue-csv-toggle-headers>
                             <vue-csv-input></vue-csv-input>
-                            <vue-csv-map :auto-match="false"></vue-csv-map>
+                            <vue-csv-table-map :auto-match="false" :table-attributes="{id: 'csv-table'}"></vue-csv-table-map>
                             <vue-csv-submit url="/"></vue-csv-submit>
                         </vue-csv-import>
                         <pre class="mt-15" v-if="csv"><code>{{ csv }}</code></pre>
