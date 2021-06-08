@@ -82,7 +82,7 @@
                     VueCsvImportData.rawCsv.value = null;
                 }
                 let reader = new FileReader();
-                reader.readAsText(VueCsvImportData.file, "UTF-8");
+                reader.readAsText(VueCsvImportData.file, props.parseConfig.encoding || "UTF-8");
                 reader.onload = function (evt) {
                     VueCsvImportData.csvSample = get(Papa.parse(evt.target.result, merge({
                         preview: 2,
