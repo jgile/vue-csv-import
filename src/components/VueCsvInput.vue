@@ -85,7 +85,7 @@
                 reader.readAsText(VueCsvImportData.file, "UTF-8");
                 reader.onload = function (evt) {
                     VueCsvImportData.csvSample = get(Papa.parse(evt.target.result, merge({
-                        preview: 2,
+                        preview: 10,
                         skipEmptyLines: true
                     }, props.parseConfig)), "data");
                     VueCsvImportData.rawCsv = get(Papa.parse(evt.target.result, merge({skipEmptyLines: true}, props.parseConfig)), "data");
