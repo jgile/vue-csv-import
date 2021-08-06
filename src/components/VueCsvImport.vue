@@ -57,7 +57,7 @@
                                         :name="`csv_uploader_map_${key}`"
                                         v-model="map[field.key]"
                                     >
-                                        <option :value="null" v-if="canIgnore">Ignore</option>
+                                        <option :value="null" v-if="canIgnore">{{ ignoreOptionText }}</option>
                                         <option v-for="(column, key) in firstRow" :key="key" :value="key">
                                             {{ column }}
                                         </option>
@@ -120,6 +120,10 @@ export default {
         submitBtnText: {
             type: String,
             default: "Submit",
+        },
+        ignoreOptionText: {
+            type: String,
+            default: "Ignore",
         },
         autoMatchFields: {
             type: Boolean,
