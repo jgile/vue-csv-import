@@ -7,39 +7,44 @@
 </template>
 
 <script>
-    import {inject} from 'vue';
-    import axios from 'axios';
+import {inject} from 'vue';
+import axios from 'axios';
 
-    export default {
-        name: "VueCsvImportSubmit",
-        props: {
-            url: {
-                type: String,
-                required: true,
-            }
+export default {
+    name: "VueCsvImportSubmit",
+    props: {
+        url: {
+            type: String,
+            required: true,
         },
-        setup(props) {
-            const VueCsvImportData = inject('VueCsvImportData');
-            const buildMappedCsv = inject('buildMappedCsv');
-            const labels = VueCsvImportData.language;
+        config: {
+            type: Object,
+            required: false,
+            default: {}
+        }
+    },
+    setup(props) {
+        const VueCsvImportData = inject('VueCsvImportData');
+        const buildMappedCsv = inject('buildMappedCsv');
+        const labels = VueCsvImportData.language;
 
-            const submit = function () {
-                buildMappedCsv();
+        const submit = function () {
+            buildMappedCsv();
 
-                axios.post(props.url, {[VueCsvImportData.inputName]: VueCsvImportData.value}).then(response => {
-                    emit('send-success', response);
-                }).catch(response => {
-                    emit('send-error', response);
-                }).finally(response => {
-                    emit('send-complete', response);
-                });
-            };
+            axios.post(props.url, {[VueCsvImportData.inputName]: VueCsvImportData.value}, props.config).then(response => {
+                emit('send-success', response);
+            }).catch(response => {
+                emit('send-error', response);
+            }).finally(response => {
+                emit('send-complete', response);
+            });
+        };
 
-            return {
-                submit,
-                VueCsvImportData,
-                labels
-            }
-        },
-    };
+        return {
+            submit,
+            VueCsvImportData,
+            labels
+        }
+    },
+};
 </script>
