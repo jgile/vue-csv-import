@@ -108,6 +108,7 @@ Options:
 | tableSelectClass | "form-control" | The class to be added to the table element selects |
 | submitBtnText | "Submit" | The value of the final submit button |
 | loadBtnText | "Submit" | The value of the initial load file button |
+| ignoreOptionText | "Ignore" | The text to display for the fields marked to be ignored |
 | headers | null | Define whether csv has headers by default.  Removes checkbox. |
 | fileMimeTypes | ["text/csv"] | Array of valid mime types
 | canIgnore | false | Can fields be ignored (Boolean)
