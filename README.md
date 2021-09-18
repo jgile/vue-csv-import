@@ -283,7 +283,7 @@ Displays a button to post the CSV to specified URL.
 <template>
     <vue-csv-import>
         ...
-        <vue-csv-submit url="/post/here"></vue-csv-submit>
+        <vue-csv-submit url="/post/here" :config="{}"></vue-csv-submit>
         ...
     </vue-csv-import>
 </template>
@@ -307,6 +307,7 @@ Or use slot for custom markup:
 | Prop   | Default   | Description |
 | ------ | -------   | ----------- |
 | url    | N/A       | (required) Where to post the CSV. |
+| config | {}       | (optional) Axios config object. |
 
 #### Slot Props:
 
