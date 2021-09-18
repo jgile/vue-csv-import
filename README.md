@@ -2,7 +2,7 @@
 
 [![Latest Version on NPM](https://img.shields.io/npm/v/vue-csv-import.svg?style=flat-square)](https://npmjs.com/package/vue-csv-import)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![CircleCI](https://circleci.com/gh/jgile/vue-csv-import.svg?style=svg)](https://circleci.com/gh/jgile/vue-csv-import)
+![npm tests](https://github.com/jgile/vue-csv-import/actions/workflows/nodejs.yml/badge.svg)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jgile/vue-csv-import/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jgile/vue-csv-import/?branch=master)
 
 This version is for Vue 3. [Click here for Vue 2](https://github.com/jgile/vue-csv-import/tree/vue2).
