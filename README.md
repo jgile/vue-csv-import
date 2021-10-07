@@ -87,7 +87,8 @@ Primary wrapper component.
             },
             age: {
                 required: true,
-                label: 'Age'
+                label: 'Age',
+                type: Number
             }
         }"
     >
@@ -101,11 +102,21 @@ Primary wrapper component.
 
 | Prop          | Default   | Description |
 | ------        | -------   | ----------- |
-| fields        | null      | (required) The field names used to map the CSV. |
+| fields        | see below | (required) The fields used to map the CSV. |
 | text          | see below | (optional) Override the default text used in the component. |
 | modelValue    | N/A       | (optional) Binds to the mapped CSV object. |
 
-#### Default text
+##### Fields Prop
+
+The fields prop may be a simple array (e.g. `['name', 'age']) or an object with the following properties:
+
+| Prop          | Default   | Description |
+| ------        | -------   | ----------- |
+| required      | true      | (required) The field names used to map the CSV. |
+| label         | N/A       | (required) Override the default text used in the component. |
+| type          | String    | (optional) A primitive object used to cast the field value. |
+
+##### Default Text Prop
 
 ```json
 {

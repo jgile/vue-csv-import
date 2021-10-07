@@ -46,6 +46,7 @@
                 key: key,
                 label: get(val, 'label', val),
                 required: get(val, 'required', true),
+                type: get(val, 'type', String),
             };
         });
     }
@@ -83,11 +84,12 @@
 
             const buildMappedCsv = function () {
                 let newCsv = VueCsvImportData.fileHasHeaders ? VueCsvImportData.rawCsv : drop(VueCsvImportData.rawCsv);
+                let typeMap = VueCsvImportData.fields.reduce((a, f) => set(a, f.key, f.type ?? String), {});
 
                 VueCsvImportData.value = map(newCsv, (row) => {
                     let newRow = {};
                     forEach(VueCsvImportData.map, (column, field) => {
-                        set(newRow, field, get(row, column));
+                        set(newRow, field, typeMap[field](get(row, column)));
                     });
 
                     return newRow;
