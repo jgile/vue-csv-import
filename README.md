@@ -102,7 +102,7 @@ Primary wrapper component.
 
 | Prop          | Default   | Description |
 | ------        | -------   | ----------- |
-| fields        | see below | (required) The fields used to map the CSV. |
+| fields        | null      | (required) The fields used to map the CSV - see below. |
 | text          | see below | (optional) Override the default text used in the component. |
 | modelValue    | N/A       | (optional) Binds to the mapped CSV object. |
 
