@@ -122,6 +122,7 @@ The fields prop may be a simple array (e.g. `['name', 'age']) or an object with 
 {
     errors: {
         fileRequired: 'A file is required',
+        invalidFieldType: "Invalid data type in row ${row} column ${col}. ",
         invalidMimeType: "Invalid file type"
     },
     toggleHeaders: 'File has headers',
