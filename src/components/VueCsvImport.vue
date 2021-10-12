@@ -20,6 +20,7 @@
     const defaultLanguage = {
         errors: {
             fileRequired: 'A file is required',
+            invalidFieldType: 'Invalid data type in row ${row} column ${col}. ',
             invalidMimeType: "Invalid file type"
         },
         toggleHeaders: 'File has headers',
@@ -84,18 +85,47 @@
 
             const buildMappedCsv = function () {
                 let newCsv = VueCsvImportData.fileHasHeaders ? VueCsvImportData.rawCsv : drop(VueCsvImportData.rawCsv);
-                let typeMap = VueCsvImportData.fields.reduce((a, f) => set(a, f.key, f.type ?? String), {});
 
-                VueCsvImportData.value = map(newCsv, (row) => {
+                VueCsvImportData.errors = [];
+
+                VueCsvImportData.value = map(newCsv, (row, index) => {
                     let newRow = {};
                     forEach(VueCsvImportData.map, (column, field) => {
-                        set(newRow, field, typeMap[field](get(row, column)));
+                        set(newRow, field, typeCast(row, column, field, index));
                     });
 
                     return newRow;
                 });
 
                 emit('update:modelValue', VueCsvImportData.value);
+            };
+
+            const typeMap = VueCsvImportData.fields.reduce((a, f) => set(a, f.key, f.type ?? String), {});
+
+            const typeCast = function(row, column, field, index) {
+                let fieldVal = get(row, column);
+                let castVal = typeMap[field](fieldVal);
+
+                // Handle Booleans
+                if (typeMap[field] === Boolean) {
+                    switch (fieldVal.toLowerCase().trim()) {
+                        case 'false': case 'no': case '0': case 'null': case '': return false;
+                        case 'true': case 'yes': case '1': return true;
+                        default: return fieldVal; // Return uncast value
+                    }
+                }
+
+                // Catch non-numeric Numbers
+                if (Object.is(NaN, castVal)) {
+                    VueCsvImportData.errors.push(
+                        defaultLanguage.errors.invalidFieldType
+                            .replace(/\${row}/g, index + (VueCsvImportData.fileHasHeaders ? 1 : 2))
+                            .replace(/\${col}/g, column + 1)
+                    );
+                    return fieldVal; // Return uncast value
+                }
+
+                return castVal;
             };
 
             provide('VueCsvImportData', VueCsvImportData);
