@@ -104,28 +104,40 @@
 
             const typeCast = function(row, column, field, index) {
                 let fieldVal = get(row, column);
-                let castVal = typeMap[field](fieldVal);
+                let castVal = null;
+
+                try { castVal = typeMap[field](fieldVal); }
+                catch(err) {
+                    typeCastError(index, column);
+                    return fieldVal; // Return uncast value
+                }
 
                 // Handle Booleans
                 if (typeMap[field] === Boolean) {
                     switch (fieldVal.toLowerCase().trim()) {
-                        case 'false': case 'no': case '0': case 'null': case '': return false;
-                        case 'true': case 'yes': case '1': return true;
-                        default: return fieldVal; // Return uncast value
+                        case 'false': case 'no': case 'off': case '0': case 'null': case '': return false;
+                        case 'true': case 'yes': case 'on': case '1': return true;
+                        default:
+                            typeCastError(index, column);
+                            return fieldVal; // Return uncast value
                     }
                 }
 
                 // Catch non-numeric Numbers
                 if (Object.is(NaN, castVal)) {
-                    VueCsvImportData.errors.push(
-                        defaultLanguage.errors.invalidFieldType
-                            .replace(/\${row}/g, index + (VueCsvImportData.fileHasHeaders ? 1 : 2))
-                            .replace(/\${col}/g, column + 1)
-                    );
+                    typeCastError(index, column);
                     return fieldVal; // Return uncast value
                 }
 
                 return castVal;
+            };
+
+            const typeCastError = function(index, column) {
+                VueCsvImportData.errors.push(
+                    defaultLanguage.errors.invalidFieldType
+                        .replace(/\${row}/g, index + (VueCsvImportData.fileHasHeaders ? 1 : 2))
+                        .replace(/\${col}/g, column + 1)
+                );
             };
 
             provide('VueCsvImportData', VueCsvImportData);
