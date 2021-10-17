@@ -16,6 +16,7 @@
     import map from 'lodash/map';
     import set from 'lodash/set';
     import merge from 'lodash/merge';
+    import pickBy from 'lodash/pickBy';
 
     const defaultLanguage = {
         errors: {
@@ -90,7 +91,7 @@
 
                 VueCsvImportData.value = map(newCsv, (row, index) => {
                     let newRow = {};
-                    forEach(VueCsvImportData.map, (column, field) => {
+                    forEach(pickBy(VueCsvImportData.map, (v) => Number.isInteger(v)), (column, field) => {
                         let fieldVal = get(row, column);
                         try { 
                             fieldVal = typeCast(field, fieldVal);
