@@ -89,9 +89,14 @@
 
                 VueCsvImportData.errors = [];
 
+                // We only want to include mapped fields because deselected fields remain in the map object
+                // so we'll exclude anything in VueCsvImportData.map that isn't mapped to a column number
+                const currentlyMapped = pickBy(VueCsvImportData.map, (v) => Number.isInteger(v));
+
                 VueCsvImportData.value = map(newCsv, (row, index) => {
                     let newRow = {};
-                    forEach(pickBy(VueCsvImportData.map, (v) => Number.isInteger(v)), (column, field) => {
+
+                    forEach(currentlyMapped, (column, field) => {
                         let fieldVal = get(row, column);
                         try { 
                             fieldVal = typeCast(field, fieldVal);
