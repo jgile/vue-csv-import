@@ -66,8 +66,9 @@ A minimal working example with all components will look something like this:
 
 - [VueCsvImport](#VueCsvImport) - The primary component wrapper. All other components should be used within this component.
 - [VueCsvToggleHeaders](#VueCsvToggleHeaders) - Toggles whether CSV should be read as having headers or not.
-- [VueCsvInput](#VueCsvInput) - The file input field to upload your CSV
-- [VueCsvMap](#VueCsvMap) - Used to map CSV columns to your fields
+- [VueCsvInput](#VueCsvInput) - The file input field to upload your CSV.
+- [VueCsvMap](#VueCsvMap) - Used to map CSV columns to your fields.
+- [VueCsvTableMap](#VueCsvTableMap) - Used to your fields to the CSV coulmns (inverse of above).
 - [VueCsvSubmit](#VueCsvSubmit) - Used to POST the mapped CSV.
 - [VueCsvErrors](#VueCsvErrors) - Used to display errors.
 
@@ -261,6 +262,54 @@ Or use slot for custom markup:
 | ------              | -------   | ----------- |
 | noThead             | false     | (optional) Attributes to bind to the checkbox. |
 | selectAttributes    | {}        | (optional) Attributes to bind to the select fields. |
+| autoMatch           | true      | (optional) Auto-match fields to columns when they share the same name |
+| autoMatchIgnoreCase | true      | (optional) Ignore case when auto-matching |
+
+#### Slot Props:
+
+| Prop   | Description |
+| ------ | ----------- |
+| sample | The first row of the CSV. |
+| map    | The currently mapped fields. |
+| fields | The fields. |
+
+---
+
+### VueCsvTableMap
+
+A drop in replacement for VueCsvMap to map the specifeid fields to the CSV. [inverse]
+
+```vue
+
+<template>
+    <vue-csv-import>
+        ...
+        <vue-csv-table-map></vue-csv-table-map>
+        ...
+    </vue-csv-import>
+</template>
+```
+
+Or use slot for custom markup:
+
+```vue
+
+<template>
+    <vue-csv-import>
+        ...
+        <vue-csv-table-map v-slot="{sample, map, fields}">
+            ...
+        </vue-csv-table-map>
+        ...
+    </vue-csv-import>
+</template>
+```
+
+#### Props:
+
+| Prop                | Default   | Description |
+| ------              | -------   | ----------- |
+| tableAttributes     | {}        | (optional) Attributes to bind to the table. |
 | autoMatch           | true      | (optional) Auto-match fields to columns when they share the same name |
 | autoMatchIgnoreCase | true      | (optional) Ignore case when auto-matching |
 
