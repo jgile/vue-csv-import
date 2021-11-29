@@ -9,7 +9,8 @@ This version is for Vue 3. [Click here for Vue 2](https://github.com/jgile/vue-c
 
 VueCsvImport is completely un-styled and customizable. All markup can be replaced and all text can be customized.
 
-[Demo](https://jgile.github.io/vue-csv-import/)
+[Simple demo](https://jgile.github.io/vue-csv-import/)
+[Styled demo](https://replit.com/@JimmyBurgess/Vue-csv-import-demo)
 
 ---
 
@@ -42,6 +43,7 @@ createApp(App)
     .use(VueCsvImportPlugin)
     .mount("#app");
 ```
+## Useage
 
 A minimal working example with all components will look something like this:
 
@@ -60,6 +62,8 @@ A minimal working example with all components will look something like this:
 </template>
 ```
 
+The only required prop is `fields` which denotes the field names you want to map the csv headers to.
+Once all required fields have been mapped to their respective columns, the v-model will be populated with a JSON representation of the mapped data.
 ---
 
 ## Components
@@ -68,7 +72,7 @@ A minimal working example with all components will look something like this:
 - [VueCsvToggleHeaders](#VueCsvToggleHeaders) - Toggles whether CSV should be read as having headers or not.
 - [VueCsvInput](#VueCsvInput) - The file input field to upload your CSV.
 - [VueCsvMap](#VueCsvMap) - Used to map CSV columns to your fields.
-- [VueCsvTableMap](#VueCsvTableMap) - Used to your fields to the CSV coulmns (inverse of above).
+- [VueCsvTableMap](#VueCsvTableMap) - Used to your fields to the CSV coulmns (inverse of VueCsvMap).
 - [VueCsvSubmit](#VueCsvSubmit) - Used to POST the mapped CSV.
 - [VueCsvErrors](#VueCsvErrors) - Used to display errors.
 
