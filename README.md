@@ -316,6 +316,14 @@ Or use slot for custom markup:
 | submit        | Submit the CSV (POST) |
 | mappedCsv     | The mapped CSV object |
 
+#### Events:
+
+| Event         | Description |
+| ------------- | ----------- |
+| send-success  | Emitted upon success response from submission         |
+| send-error    | Emitted if error response is received from submission |
+| send-complete | Emitted after completion of submission promise        |
+
 ---
 
 ### VueCsvErrors
