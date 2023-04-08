@@ -87,7 +87,8 @@ Primary wrapper component.
             },
             age: {
                 required: true,
-                label: 'Age'
+                label: 'Age',
+                type: Number
             }
         }"
     >
@@ -101,16 +102,44 @@ Primary wrapper component.
 
 | Prop          | Default   | Description |
 | ------        | -------   | ----------- |
-| fields        | null      | (required) The field names used to map the CSV. |
+| fields        | null      | (required) The fields used to map the CSV - see below. |
 | text          | see below | (optional) Override the default text used in the component. |
 | modelValue    | N/A       | (optional) Binds to the mapped CSV object. |
 
-#### Default text
+##### Fields Prop
+
+The fields prop may be a simple array (e.g. `['name', 'age']`) or an object with the following properties:
+
+| Prop          | Default   | Description |
+| ------        | -------   | ----------- |
+| required      | true      | (required) The field names used to map the CSV. |
+| label         | N/A       | (required) Override the default text used in the component. |
+| type          | String    | (optional) A primitive object used to cast the field value - see below |
+
+The type property supports casting with primitive objects, including String, Number, BigInt, and Boolean. 
+
+- Number fields - should contain numeric values
+- BigInt fields - should contain valid integers or strings (incl. hex, oct, or binary)
+- Boolean fields - should include true, false, yes, no, on, off, 1, 0, null or an empty string
+
+Field values that are incompatible with the specified type will be returned as strings and will generate an error. 
+
+A closure, may also be assigned to the type property for more complex casting:
+```
+discount: {
+    required: true,
+    label: 'Discount %',
+    type: (v) => Number((v / 100)) }
+}
+```
+
+##### Default Text Prop
 
 ```json
 {
     errors: {
         fileRequired: 'A file is required',
+        invalidFieldType: "Invalid data type in row ${row} column ${col}. ",
         invalidMimeType: "Invalid file type"
     },
     toggleHeaders: 'File has headers',
