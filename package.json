@@ -1,9 +1,10 @@
 {
-    "name": "vue-csv-import",
+    "name": "vue-csv-import-libertie",
     "version": "4.1.2",
     "private": false,
     "description": "Vue.js component to handle CSV uploads with field mapping.",
     "author": "John Gile <me@jgile.com>",
+    "contributors": ["Libertie Valance (https://github.com/Libertie)"],
     "main": "dist/vue-csv-import.esm.js",
     "unpkg": "dist/vue-csv-import.umd.js",
     "scripts": {
@@ -51,6 +52,6 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/jgile/vue-csv-import.git"
+        "url": "https://github.com/Libertie/vue-csv-import"
     }
 }
