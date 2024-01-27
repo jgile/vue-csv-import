@@ -23,7 +23,7 @@ export default {
             default: {}
         }
     },
-    setup(props) {
+    setup(props, context) {
         const VueCsvImportData = inject('VueCsvImportData');
         const buildMappedCsv = inject('buildMappedCsv');
         const labels = VueCsvImportData.language;
@@ -32,11 +32,11 @@ export default {
             buildMappedCsv();
 
             axios.post(props.url, {[VueCsvImportData.inputName]: VueCsvImportData.value}, props.config).then(response => {
-                emit('send-success', response);
+                context.emit('send-success', response);
             }).catch(response => {
-                emit('send-error', response);
+                context.emit('send-error', response);
             }).finally(response => {
-                emit('send-complete', response);
+                context.emit('send-complete', response);
             });
         };
 
